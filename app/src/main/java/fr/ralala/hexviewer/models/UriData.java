@@ -23,7 +23,7 @@ public class UriData {
   private final int mIndex;
   private final int mMaxLength;
   private final String mDetail;
-  private boolean mError;
+  private final boolean mError;
   private final boolean mClickable;
   private boolean mSizeChanged;
 
@@ -89,10 +89,6 @@ public class UriData {
 
   public boolean isError() {
     return mError;
-  }
-
-  public void setError(boolean mError) {
-    this.mError = mError;
   }
 
   public boolean isClickable() {

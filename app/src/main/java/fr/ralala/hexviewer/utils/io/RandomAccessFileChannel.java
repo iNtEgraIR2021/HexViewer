@@ -161,18 +161,6 @@ public class RandomAccessFileChannel {
     mPosition = newPosition;
   }
 
-  /**
-   * Returns the file size.
-   *
-   * @return The size.
-   * @throws IOException If an I/O error occurs.
-   */
-  public long getSize() throws IOException {
-    if (mMode == Mode.WO)
-      return mFileOutputStream == null ? 0 : mFileOutputStream.getChannel().size();
-    return mFileInputStream == null ? 0 : mFileInputStream.getChannel().size();
-  }
-
   private void closeOutputStreams() {
     if (mFileOutputStream != null) {
       try {

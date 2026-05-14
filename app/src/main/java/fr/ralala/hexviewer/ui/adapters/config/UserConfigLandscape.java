@@ -16,6 +16,7 @@ import fr.ralala.hexviewer.application.ApplicationCtx;
  * </p>
  * ******************************************************************************
  */
+@SuppressWarnings("ClassCanBeRecord")
 public class UserConfigLandscape implements UserConfig {
   private final ApplicationCtx mApp;
   private final boolean mIsHexList;

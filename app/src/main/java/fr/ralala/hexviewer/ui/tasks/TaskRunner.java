@@ -65,7 +65,6 @@ public abstract class TaskRunner<C, P, I, R> implements TaskRunnerCallback<C, P,
         result = doInBackground(config, param);
       } catch (Exception e) {
         Log.e(getClass().getName(), EXCEPTION_TAG + e.getMessage(), e);
-        onException(e);
       } finally {
         final R finalResult = result;
         mHandler.post(() -> onPostExecute(finalResult));
@@ -111,16 +110,6 @@ public abstract class TaskRunner<C, P, I, R> implements TaskRunnerCallback<C, P,
    */
   @Override
   public void onCancelled() {
-    /* user implementation */
-  }
-
-  /**
-   * Called when the method {@link #doInBackground} raises an exception
-   *
-   * @param t The exception.
-   */
-  @Override
-  public void onException(Throwable t) {
     /* user implementation */
   }
 }

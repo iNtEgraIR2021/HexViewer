@@ -99,10 +99,6 @@ public abstract class GenericMultiChoiceCallback implements ActionMode.Callback 
     });
   }
 
-  protected SearchableListArrayAdapter getAdapter() {
-    return mAdapter;
-  }
-
   /**
    * Returns the menu id.
    *

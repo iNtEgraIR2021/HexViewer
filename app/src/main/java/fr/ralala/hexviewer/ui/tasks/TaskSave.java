@@ -41,6 +41,7 @@ public class TaskSave extends ProgressTask<FileSaveProcessor, TaskSave.Request, 
     private FileData fd = null;
   }
 
+  @SuppressWarnings("ClassCanBeRecord")
   public static class Request {
     private final FileData mFd;
     private final List<LineEntry> mEntries;

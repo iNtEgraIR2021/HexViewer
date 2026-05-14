@@ -26,6 +26,7 @@ import fr.ralala.hexviewer.ui.utils.UIHelper;
  * </p>
  * ******************************************************************************
  */
+@SuppressWarnings("ClassCanBeRecord")
 public class SaveDialog {
   private final Activity mActivity;
   private final String mTitle;

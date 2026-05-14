@@ -14,6 +14,7 @@ import androidx.annotation.Nullable;
  * </p>
  * ******************************************************************************
  */
+@SuppressWarnings("unused")
 public interface TaskRunnerCallback<C, P, I, R> {
 
   /**
@@ -52,12 +53,5 @@ public interface TaskRunnerCallback<C, P, I, R> {
    * Called when the async task is cancelled.
    */
   void onCancelled();
-
-  /**
-   * Called when the method {@link #doInBackground} raises an exception
-   *
-   * @param t The exception.
-   */
-  void onException(Throwable t);
 
 }

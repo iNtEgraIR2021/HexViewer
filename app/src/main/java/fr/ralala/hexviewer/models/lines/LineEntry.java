@@ -48,15 +48,6 @@ public class LineEntry {
   }
 
   /**
-   * Returns the offset used to shift the text to the end of the line.
-   *
-   * @return int
-   */
-  public int getShiftOffset() {
-    return mShiftOffset;
-  }
-
-  /**
    * Sets the values.
    *
    * @param plain  Plain text

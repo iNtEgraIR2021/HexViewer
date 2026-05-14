@@ -57,7 +57,7 @@ public class FileData {
     /* We assume that if the file sizes are not <= 0, the file exists. */
     if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.Q && (mSize <= 0 || mRealSize <= 0)) {
       DocumentFile sourceFile = DocumentFile.fromSingleUri(ctx, mUri);
-      mIsNotFound = (sourceFile == null || !sourceFile.exists());
+      mIsNotFound = !sourceFile.exists();
     }
     if (mIsNotFound) {
       mIsAccessError = false;

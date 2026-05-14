@@ -20,9 +20,9 @@ import fr.ralala.hexviewer.R;
  * ******************************************************************************
  */
 public class HolderRecently extends RecyclerView.ViewHolder {
-  private AppCompatTextView mIndex;
+  private final AppCompatTextView mIndex;
   private final AppCompatTextView mDetail;
-  private AppCompatTextView mName;
+  private final AppCompatTextView mName;
 
   public HolderRecently(View view) {
     super(view);
@@ -35,19 +35,11 @@ public class HolderRecently extends RecyclerView.ViewHolder {
     return mIndex;
   }
 
-  public void setIndex(AppCompatTextView mIndex) {
-    this.mIndex = mIndex;
-  }
-
   public AppCompatTextView getDetail() {
     return mDetail;
   }
 
   public AppCompatTextView getName() {
     return mName;
-  }
-
-  public void setName(AppCompatTextView mName) {
-    this.mName = mName;
   }
 }
