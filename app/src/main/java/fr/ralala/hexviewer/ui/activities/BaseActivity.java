@@ -7,13 +7,13 @@ import android.view.LayoutInflater;
 import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import fr.ralala.hexviewer.application.ApplicationCtx;
 import fr.ralala.hexviewer.R;
+import fr.ralala.hexviewer.databinding.ActivityBaseBinding;
 import fr.ralala.hexviewer.ui.utils.SystemBarUtils;
 
 /**
@@ -44,9 +44,9 @@ public class BaseActivity extends AppCompatActivity {
     mApp.applyThemeFromSettings();
     super.onCreate(savedInstanceState);
     mLastConfig = new Configuration(getResources().getConfiguration());
-    setContentView(R.layout.activity_base);
-    Toolbar toolbar = findViewById(R.id.base_toolbar);
-    setSupportActionBar(toolbar);
+    ActivityBaseBinding binding = ActivityBaseBinding.inflate(getLayoutInflater());
+    setContentView(binding.getRoot());
+    setSupportActionBar(binding.baseToolbar); // base_toolbar -> baseToolbar
     SystemBarUtils.setNavAndStatusBarColor(this,
       mApp.getCurrentTheme().equals(getString(R.string.default_theme_light)));
   }

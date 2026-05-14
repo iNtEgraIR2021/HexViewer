@@ -13,14 +13,12 @@ import android.text.InputType;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.LinearLayout;
 import android.widget.SearchView;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.AppCompatTextView;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.view.MenuCompat;
@@ -29,6 +27,7 @@ import java.io.ByteArrayOutputStream;
 
 import fr.ralala.hexviewer.application.ApplicationCtx;
 import fr.ralala.hexviewer.R;
+import fr.ralala.hexviewer.databinding.ActivityMainBinding;
 import fr.ralala.hexviewer.models.FileData;
 import fr.ralala.hexviewer.models.lines.LineEntry;
 import fr.ralala.hexviewer.ui.activities.settings.SettingsActivity;
@@ -66,7 +65,6 @@ import fr.ralala.hexviewer.utils.io.FileHelper;
 public class MainActivity extends BaseActivity implements ICommonUI {
   private static final String TAG = "Main";
   private FileData mFileData = null;
-  private ConstraintLayout mIdleView = null;
   private MenuItem mSearchMenu = null;
   private MenuItem mEditEmptyMenu = null;
   private String mSearchQuery = "";
@@ -85,6 +83,7 @@ public class MainActivity extends BaseActivity implements ICommonUI {
   private SearchView mSearchView = null;
   private AlertDialog mOrphanDialog = null;
   protected ApplicationCtx mApp = null;
+  private ActivityMainBinding mBinding;
 
   private void llInit() {
 
@@ -129,6 +128,7 @@ public class MainActivity extends BaseActivity implements ICommonUI {
     mApp = (ApplicationCtx) getApplicationContext();
     llInit();
     setLayout(R.layout.activity_main);
+    mBinding = ActivityMainBinding.bind(findViewById(R.id.main_layout));
     ApplicationCtx.addLog(this, TAG, "Application started with language: '" +
       ((ApplicationCtx) getApplicationContext()).getApplicationLanguage(this) + "'");
 
@@ -137,24 +137,22 @@ public class MainActivity extends BaseActivity implements ICommonUI {
 
     mPopup = new MainPopupWindow(this, mUnDoRedo, this::onPopupItemClick);
 
-    LinearLayout mainLayout = findViewById(R.id.main_layout);
-    mIdleView = findViewById(R.id.idle_view);
-    mIdleView.setVisibility(View.VISIBLE);
+    mBinding.idleView.setVisibility(View.VISIBLE);
 
-    findViewById(R.id.button_open_file).setOnClickListener(v ->
+    mBinding.buttonOpenFile.setOnClickListener(v ->
       onPopupItemClick(R.id.action_open));
-    findViewById(R.id.button_partial_open_file).setOnClickListener(v ->
+    mBinding.buttonPartialOpenFile.setOnClickListener(v ->
       onPopupItemClick(R.id.action_open_sequential));
-    findViewById(R.id.button_recently_open).setOnClickListener(v ->
+    mBinding.buttonRecentlyOpen.setOnClickListener(v ->
       onPopupItemClick(R.id.action_recently_open));
-    findViewById(R.id.button_recently_open).setEnabled(!mApp.getRecentlyOpened().list().isEmpty());
+    mBinding.buttonRecentlyOpen.setEnabled(!mApp.getRecentlyOpened().list().isEmpty());
     mPayloadHexHelper = new PayloadHexHelper();
     mPayloadHexHelper.onCreate(this, this);
 
     mPayloadPlainSwipe = new PayloadPlainSwipe();
     mPayloadPlainSwipe.onCreate(this, this);
 
-    mLauncherOpen = new LauncherOpen(this, this, mainLayout);
+    mLauncherOpen = new LauncherOpen(this, this, mBinding.mainLayout);
     mLauncherSave = new LauncherSave(this, this);
     mLauncherLineUpdate = new LauncherLineUpdate(this, this);
     mLauncherRecentlyOpen = new LauncherRecentlyOpen(this, this);
@@ -196,7 +194,7 @@ public class MainActivity extends BaseActivity implements ICommonUI {
       mPopup.dismiss();
     mApp.applyApplicationLanguage(this);
     /* refresh */
-    findViewById(R.id.button_recently_open).setEnabled(!((ApplicationCtx) getApplicationContext()).getRecentlyOpened().list().isEmpty());
+    mBinding.buttonRecentlyOpen.setEnabled(!((ApplicationCtx) getApplicationContext()).getRecentlyOpened().list().isEmpty());
     onOpenResult(!FileData.isEmpty(mFileData), false);
     if (mPayloadHexHelper.isVisible())
       mPayloadHexHelper.refreshAdapter();
@@ -345,13 +343,13 @@ public class MainActivity extends BaseActivity implements ICommonUI {
       mPopup.setMenusEnable(success);
     }
     if (success) {
-      mIdleView.setVisibility(View.GONE);
+      mBinding.idleView.setVisibility(View.GONE);
       mPayloadHexHelper.setVisible(!checked);
       mPayloadPlainSwipe.setVisible(checked);
       if (fromOpen)
         mUnDoRedo.clear();
     } else {
-      mIdleView.setVisibility(View.VISIBLE);
+      mBinding.idleView.setVisibility(View.VISIBLE);
       mPayloadHexHelper.setVisible(false);
       mPayloadPlainSwipe.setVisible(false);
       mFileData = null;
@@ -708,7 +706,7 @@ public class MainActivity extends BaseActivity implements ICommonUI {
       mPayloadPlainSwipe.getAdapter().clear();
       mPayloadHexHelper.getAdapter().clear();
       cancelSearch();
-      findViewById(R.id.button_recently_open).setEnabled(!mApp.getRecentlyOpened().list().isEmpty());
+      mBinding.buttonRecentlyOpen.setEnabled(!mApp.getRecentlyOpened().list().isEmpty());
     };
     if (mUnDoRedo.isChanged()) {// a save operation is pending?
       UIHelper.confirmFileChanged(this, mFileData, r,

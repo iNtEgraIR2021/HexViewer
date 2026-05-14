@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
-import android.widget.ListView;
 
 import androidx.appcompat.app.ActionBar;
 
@@ -19,6 +18,7 @@ import java.util.Locale;
 import fr.ralala.hexviewer.application.ApplicationCtx;
 import fr.ralala.hexviewer.BuildConfig;
 import fr.ralala.hexviewer.R;
+import fr.ralala.hexviewer.databinding.ActivityLogsBinding;
 
 /**
  * ******************************************************************************
@@ -35,7 +35,7 @@ import fr.ralala.hexviewer.R;
 public class LogsActivity extends BaseActivity {
   private CircularFifoQueue<String> mCfq = null;
   private String mContent = null;
-  private ListView mLogs = null;
+  private ActivityLogsBinding mBinding;
 
   /**
    * Starts an activity.
@@ -54,6 +54,7 @@ public class LogsActivity extends BaseActivity {
   public void onCreate(final Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setLayout(R.layout.activity_logs);
+    mBinding = ActivityLogsBinding.bind(findViewById(R.id.main_layout));
     ApplicationCtx app = (ApplicationCtx) getApplicationContext();
 
     ActionBar actionBar = getSupportActionBar();
@@ -62,16 +63,14 @@ public class LogsActivity extends BaseActivity {
       actionBar.setDisplayHomeAsUpEnabled(true);
     }
 
-    mLogs = findViewById(R.id.logs);
-
     mCfq = (CircularFifoQueue<String>) app.getLogBuffer();
     final String[] lines = mCfq.toArray(new String[]{});
     final StringBuilder sb = new StringBuilder();
     for (final String s : lines)
       sb.append(s).append("\n");
     mContent = sb.toString();
-    mLogs.setAdapter(null);
-    mLogs.setAdapter(new ArrayAdapter<>(this,
+    mBinding.logs.setAdapter(null);
+    mBinding.logs.setAdapter(new ArrayAdapter<>(this,
       R.layout.listview_simple_row, R.id.label1, lines));
   }
 
@@ -116,7 +115,7 @@ public class LogsActivity extends BaseActivity {
     } else if (item.getItemId() == R.id.action_clear) {
       mContent = "";
       mCfq.clear();
-      mLogs.setAdapter(null);
+      mBinding.logs.setAdapter(null);
       finish();
       return true;
     } else if (item.getItemId() == R.id.action_share) {

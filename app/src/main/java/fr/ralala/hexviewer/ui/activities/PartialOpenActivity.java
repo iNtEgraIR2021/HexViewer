@@ -21,8 +21,6 @@ import android.widget.EditText;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.widget.AppCompatSpinner;
-import androidx.appcompat.widget.AppCompatTextView;
 import androidx.core.content.res.ResourcesCompat;
 
 import com.google.android.material.textfield.TextInputEditText;
@@ -37,6 +35,7 @@ import java.util.regex.Pattern;
 
 import fr.ralala.hexviewer.application.ApplicationCtx;
 import fr.ralala.hexviewer.R;
+import fr.ralala.hexviewer.databinding.ActivityPartialOpenBinding;
 import fr.ralala.hexviewer.models.FileData;
 import fr.ralala.hexviewer.ui.utils.UIHelper;
 import fr.ralala.hexviewer.utils.system.SysHelper;
@@ -71,13 +70,6 @@ public class PartialOpenActivity extends BaseActivity implements AdapterView.OnI
   private static final int IDX_G_BYTES = 3;
   private static final int ERROR_START = 1;
   private static final int ERROR_END = 2;
-  private AppCompatTextView mTextSizePart;
-  private AppCompatSpinner mSpUnit;
-  private AppCompatSpinner mSpInputType;
-  private TextInputLayout mTilStart;
-  private TextInputEditText mTietStart;
-  private TextInputLayout mTilEnd;
-  private TextInputEditText mTietEnd;
   private boolean mCurrentIsHex = false;
   private boolean mIgnoreInputEvent = true;
   private boolean mIgnore = false;
@@ -85,6 +77,7 @@ public class PartialOpenActivity extends BaseActivity implements AdapterView.OnI
   private InputFilter[] mDefaultStartInputFiler = new InputFilter[0];
   private InputFilter[] mDefaultEndInputFiler = new InputFilter[0];
   private Typeface mTypefaceMonospace;
+  private ActivityPartialOpenBinding mBinding;
 
   /* https://stackoverflow.com/questions/10648449/how-do-i-set-a-edittext-to-the-input-of-only-hexadecimal-numbers/17355026 */
   private final InputFilter mInputFilterTextHex = (source, start, end, dest, dstart, dend) -> {
@@ -147,13 +140,9 @@ public class PartialOpenActivity extends BaseActivity implements AdapterView.OnI
     super.onCreate(savedInstanceState);
 
     setLayout(R.layout.activity_partial_open);
+    mBinding = ActivityPartialOpenBinding.bind(findViewById(R.id.main_layout));
 
     mTypefaceMonospace = ResourcesCompat.getFont(this, R.font.jetbrains_mono);
-    mTextSizePart = findViewById(R.id.text_size_part);
-    mSpUnit = findViewById(R.id.sp_unit);
-    mSpInputType = findViewById(R.id.sp_input_type);
-    mTilStart = findViewById(R.id.til_start);
-    mTilEnd = findViewById(R.id.til_end);
 
     ActionBar actionBar = getSupportActionBar();
     if (actionBar != null) {
@@ -180,9 +169,6 @@ public class PartialOpenActivity extends BaseActivity implements AdapterView.OnI
   }
 
   private void apply(boolean isSequential, long startOffset, long endOffset, long size) {
-    AppCompatTextView textFileSize = findViewById(R.id.text_size);
-    TextInputEditText tietStart = findViewById(R.id.tiet_start);
-    TextInputEditText tietEnd = findViewById(R.id.tiet_end);
     long max;
     long start;
     long end;
@@ -196,53 +182,41 @@ public class PartialOpenActivity extends BaseActivity implements AdapterView.OnI
       end = mRealSize;
       max = end;
     }
-    if (mSpUnit != null) {
-      List<String> units = new ArrayList<>();
-      units.add(getString(R.string.unit_byte_full));
-      units.add(getString(R.string.unit_kbyte));
-      units.add(getString(R.string.unit_mbyte));
-      units.add(getString(R.string.unit_gbyte));
-      ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
-        android.R.layout.simple_spinner_item,
-        units);
-      adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-      mSpUnit.setSelection(IDX_BYTES);
-      mSpUnit.setAdapter(adapter);
-      mSpUnit.setOnItemSelectedListener(this);
-    }
-    if (mSpInputType != null) {
-      List<String> base = new ArrayList<>();
-      base.add(getString(R.string.decimal));
-      base.add(getString(R.string.hexadecimal));
-      ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
-        android.R.layout.simple_spinner_item,
-        base);
-      adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-      mSpInputType.setSelection(IDX_DECIMAL);
-      mSpInputType.setAdapter(adapter);
-      mSpInputType.setOnItemSelectedListener(this);
-    }
+    List<String> units = new ArrayList<>();
+    units.add(getString(R.string.unit_byte_full));
+    units.add(getString(R.string.unit_kbyte));
+    units.add(getString(R.string.unit_mbyte));
+    units.add(getString(R.string.unit_gbyte));
+    ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
+      android.R.layout.simple_spinner_item,
+      units);
+    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+    mBinding.spUnit.setSelection(IDX_BYTES);
+    mBinding.spUnit.setAdapter(adapter);
+    mBinding.spUnit.setOnItemSelectedListener(this);
+    List<String> base = new ArrayList<>();
+    base.add(getString(R.string.decimal));
+    base.add(getString(R.string.hexadecimal));
+    adapter = new ArrayAdapter<>(this,
+      android.R.layout.simple_spinner_item,
+      base);
+    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+    mBinding.spInputType.setSelection(IDX_DECIMAL);
+    mBinding.spInputType.setAdapter(adapter);
+    mBinding.spInputType.setOnItemSelectedListener(this);
 
-    if (tietStart != null) {
-      tietStart.setText(String.valueOf(start));
-      if (mTietStart != null)
-        mTietStart.removeTextChangedListener(this);
-      tietStart.addTextChangedListener(this);
-      mTietStart = tietStart;
-      mDefaultStartInputFiler = mTietStart.getFilters();
-    }
-    if (tietEnd != null) {
-      tietEnd.setText(String.valueOf(end));
-      if (mTietEnd != null)
-        mTietEnd.removeTextChangedListener(this);
-      tietEnd.addTextChangedListener(this);
-      mTietEnd = tietEnd;
-      mDefaultEndInputFiler = mTietEnd.getFilters();
-    }
-    if (textFileSize != null)
-      textFileSize.setText(SysHelper.sizeToHuman(this, real));
-    if (mTextSizePart != null)
-      mTextSizePart.setText(SysHelper.sizeToHuman(this, max));
+    mBinding.tietStart.setText(String.valueOf(start));
+    mBinding.tietStart.removeTextChangedListener(this);
+    mBinding.tietStart.addTextChangedListener(this);
+    mDefaultStartInputFiler = mBinding.tietStart.getFilters();
+
+    mBinding.tietEnd.setText(String.valueOf(end));
+    mBinding.tietEnd.removeTextChangedListener(this);
+    mBinding.tietEnd.addTextChangedListener(this);
+    mDefaultEndInputFiler = mBinding.tietEnd.getFilters();
+
+    mBinding.textSize.setText(SysHelper.sizeToHuman(this, real));
+    mBinding.textSizePart.setText(SysHelper.sizeToHuman(this, max));
     evaluateSize();
   }
 
@@ -274,8 +248,8 @@ public class PartialOpenActivity extends BaseActivity implements AdapterView.OnI
     } else if (item.getItemId() == R.id.action_done && checkValues()) {
       UIHelper.hideKeyboard(this);
       Intent i = new Intent();
-      long start = getValue(Objects.requireNonNull(mTietStart.getText()).toString(), null);
-      long end = getValue(Objects.requireNonNull(mTietEnd.getText()).toString(), null);
+      long start = getValue(Objects.requireNonNull(mBinding.tietStart.getText()).toString(), null);
+      long end = getValue(Objects.requireNonNull(mBinding.tietEnd.getText()).toString(), null);
       if (((ApplicationCtx) getApplicationContext()).isPartialOpenButWholeFileIsOpened() && start == 0L && end == mRealSize)
         end = 0L;
       i.putExtra(RESULT_START_OFFSET, start);
@@ -292,19 +266,17 @@ public class PartialOpenActivity extends BaseActivity implements AdapterView.OnI
    * Evaluates the size.
    */
   private void evaluateSize() {
-    if (mTextSizePart == null || mTietStart == null || mTietEnd == null)
-      return;
-    mTextSizePart.setText("0");
+    mBinding.textSizePart.setText("0");
     if (!checkValues())
       return;
-    String sStart = Objects.requireNonNull(mTietStart.getText()).toString();
-    String sEnd = Objects.requireNonNull(mTietEnd.getText()).toString();
-    long start = getValue(sStart, mTietStart);
-    long end = getValue(sEnd, mTietEnd);
+    String sStart = Objects.requireNonNull(mBinding.tietStart.getText()).toString();
+    String sEnd = Objects.requireNonNull(mBinding.tietEnd.getText()).toString();
+    long start = getValue(sStart, mBinding.tietStart);
+    long end = getValue(sEnd, mBinding.tietEnd);
     long size = Math.abs(end - start);
     String sSize = SysHelper.sizeToHuman(this, size);
     sSize += "\n(" + Long.toHexString(size).toUpperCase() + ")";
-    mTextSizePart.setText(sSize);
+    mBinding.textSizePart.setText(sSize);
   }
 
   /**
@@ -313,8 +285,8 @@ public class PartialOpenActivity extends BaseActivity implements AdapterView.OnI
    * @return False on error.
    */
   private boolean checkValues() {
-    String sStart = mTietStart == null || mTietStart.getText() == null ? "" : mTietStart.getText().toString();
-    String sEnd = mTietEnd == null || mTietEnd.getText() == null ? "" : mTietEnd.getText().toString();
+    String sStart = mBinding.tietStart.getText() == null ? "" : mBinding.tietStart.getText().toString();
+    String sEnd = mBinding.tietEnd.getText() == null ? "" : mBinding.tietEnd.getText().toString();
     boolean valid = checkEmpty(sStart, sEnd);
     if (valid) {
       long start = getValue(sStart, null);
@@ -337,9 +309,9 @@ public class PartialOpenActivity extends BaseActivity implements AdapterView.OnI
    */
   private void checkValuesInValidSize(int ret) {
     if ((ret & ERROR_START) != ERROR_START)
-      setErrorMessage(mTilStart, null);
+      setErrorMessage(mBinding.tilStart, null);
     if ((ret & ERROR_END) != ERROR_END)
-      setErrorMessage(mTilEnd, null);
+      setErrorMessage(mBinding.tilEnd, null);
   }
 
   /**
@@ -355,11 +327,11 @@ public class PartialOpenActivity extends BaseActivity implements AdapterView.OnI
       valid = false;
     } else if (end <= start) {
       valid = false;
-      setErrorMessage(mTilStart, R.string.error_less_than, end);
-      setErrorMessage(mTilEnd, R.string.error_less_than, start);
+      setErrorMessage(mBinding.tilStart, R.string.error_less_than, end);
+      setErrorMessage(mBinding.tilEnd, R.string.error_less_than, start);
     } else {
-      setErrorMessage(mTilStart, null);
-      setErrorMessage(mTilEnd, null);
+      setErrorMessage(mBinding.tilStart, null);
+      setErrorMessage(mBinding.tilEnd, null);
     }
     return valid;
   }
@@ -373,7 +345,7 @@ public class PartialOpenActivity extends BaseActivity implements AdapterView.OnI
    */
   private long getValue(String sValue, EditText edit) {
     String val = sValue;
-    if (mSpInputType.getSelectedItemId() == IDX_HEXADECIMAL) {
+    if (mBinding.spInputType.getSelectedItemId() == IDX_HEXADECIMAL) {
       try {
         val = String.valueOf(Long.parseLong(val, 16));
       } catch (Exception e) {
@@ -391,19 +363,19 @@ public class PartialOpenActivity extends BaseActivity implements AdapterView.OnI
    * @return The long value.
    */
   private long convert(final String val, final EditText edit) {
-    if (mSpUnit.getSelectedItemId() == IDX_K_BYTES) {
+    if (mBinding.spUnit.getSelectedItemId() == IDX_K_BYTES) {
       try {
         return (long) (Float.parseFloat(val) * SysHelper.SIZE_1KB);
       } catch (Exception e) {
         return -1;
       }
-    } else if (mSpUnit.getSelectedItemId() == IDX_M_BYTES) {
+    } else if (mBinding.spUnit.getSelectedItemId() == IDX_M_BYTES) {
       try {
         return (long) (Float.parseFloat(val) * SysHelper.SIZE_1MB);
       } catch (Exception e) {
         return -1;
       }
-    } else if (mSpUnit.getSelectedItemId() == IDX_G_BYTES) {
+    } else if (mBinding.spUnit.getSelectedItemId() == IDX_G_BYTES) {
       try {
         return (long) (Float.parseFloat(val) * SysHelper.SIZE_1GB);
       } catch (Exception e) {
@@ -491,13 +463,13 @@ public class PartialOpenActivity extends BaseActivity implements AdapterView.OnI
    */
   @Override
   public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-    if (parent.equals(mSpUnit)) {
+    if (parent.equals(mBinding.spUnit)) {
       evaluateSize();
       changeInputType();
-    } else if (parent.equals(mSpInputType)) {
+    } else if (parent.equals(mBinding.spInputType)) {
       if (!mIgnoreInputEvent) {
-        updateText(mTietStart);
-        updateText(mTietEnd);
+        updateText(mBinding.tietStart);
+        updateText(mBinding.tietEnd);
         mCurrentIsHex = !mCurrentIsHex;
       } else
         mIgnoreInputEvent = false;
@@ -520,28 +492,28 @@ public class PartialOpenActivity extends BaseActivity implements AdapterView.OnI
   }
 
   private void changeInputType() {
-    if (mSpInputType.getSelectedItemId() == IDX_DECIMAL) {
-      mTietStart.setFilters(mDefaultStartInputFiler);
-      mTietEnd.setFilters(mDefaultEndInputFiler);
-      mTietStart.setInputType(InputType.TYPE_CLASS_NUMBER);
-      mTietEnd.setInputType(InputType.TYPE_CLASS_NUMBER);
-      mTietStart.setKeyListener(DigitsKeyListener.getInstance("0123456789."));
-      mTietEnd.setKeyListener(DigitsKeyListener.getInstance("0123456789."));
+    if (mBinding.spInputType.getSelectedItemId() == IDX_DECIMAL) {
+      mBinding.tietStart.setFilters(mDefaultStartInputFiler);
+      mBinding.tietEnd.setFilters(mDefaultEndInputFiler);
+      mBinding.tietStart.setInputType(InputType.TYPE_CLASS_NUMBER);
+      mBinding.tietEnd.setInputType(InputType.TYPE_CLASS_NUMBER);
+      mBinding.tietStart.setKeyListener(DigitsKeyListener.getInstance("0123456789."));
+      mBinding.tietEnd.setKeyListener(DigitsKeyListener.getInstance("0123456789."));
     } else {
-      mTietStart.setFilters(new InputFilter[]{mInputFilterTextHex});
-      mTietStart.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD | InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
-      mTietEnd.setFilters(new InputFilter[]{mInputFilterTextHex});
-      mTietEnd.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD | InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
+      mBinding.tietStart.setFilters(new InputFilter[]{mInputFilterTextHex});
+      mBinding.tietStart.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD | InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
+      mBinding.tietEnd.setFilters(new InputFilter[]{mInputFilterTextHex});
+      mBinding.tietEnd.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD | InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
     }
 
-    mTietStart.setTypeface(mTypefaceMonospace);
-    mTietEnd.setTypeface(mTypefaceMonospace);
+    mBinding.tietStart.setTypeface(mTypefaceMonospace);
+    mBinding.tietEnd.setTypeface(mTypefaceMonospace);
     if (SysHelper.isRTL(this)) {
-      mTietStart.setTextDirection(View.TEXT_DIRECTION_RTL);
-      mTietEnd.setTextDirection(View.TEXT_DIRECTION_RTL);
+      mBinding.tietStart.setTextDirection(View.TEXT_DIRECTION_RTL);
+      mBinding.tietEnd.setTextDirection(View.TEXT_DIRECTION_RTL);
     } else {
-      mTietStart.setTextDirection(View.TEXT_DIRECTION_LTR);
-      mTietEnd.setTextDirection(View.TEXT_DIRECTION_LTR);
+      mBinding.tietStart.setTextDirection(View.TEXT_DIRECTION_LTR);
+      mBinding.tietEnd.setTextDirection(View.TEXT_DIRECTION_LTR);
     }
   }
 
@@ -616,11 +588,11 @@ public class PartialOpenActivity extends BaseActivity implements AdapterView.OnI
   private boolean checkEmpty(String start, String end) {
     boolean valid = true;
     if (start.isEmpty()) {
-      setErrorMessage(mTilStart, getString(R.string.error_less_than) + " 0");
+      setErrorMessage(mBinding.tilStart, getString(R.string.error_less_than) + " 0");
       valid = false;
     }
     if (end.isEmpty()) {
-      setErrorMessage(mTilEnd, getString(R.string.error_less_than) + " 0");
+      setErrorMessage(mBinding.tilEnd, getString(R.string.error_less_than) + " 0");
       valid = false;
     }
     return valid;
@@ -638,18 +610,18 @@ public class PartialOpenActivity extends BaseActivity implements AdapterView.OnI
     int valid = 0;
     if (start > mRealSize) {
       valid |= ERROR_START;
-      setErrorMessage(mTilStart, R.string.error_greater_than, mRealSize);
+      setErrorMessage(mBinding.tilStart, R.string.error_greater_than, mRealSize);
     } else if (start < 0) {
       valid |= ERROR_START;
-      setErrorMessage(mTilStart, getString(R.string.error_invalid_value));
+      setErrorMessage(mBinding.tilStart, getString(R.string.error_invalid_value));
     }
 
     if (end > mRealSize) {
       valid |= ERROR_END;
-      setErrorMessage(mTilEnd, R.string.error_greater_than, mRealSize);
+      setErrorMessage(mBinding.tilEnd, R.string.error_greater_than, mRealSize);
     } else if (end < 0) {
       valid |= ERROR_END;
-      setErrorMessage(mTilEnd, getString(R.string.error_invalid_value));
+      setErrorMessage(mBinding.tilEnd, getString(R.string.error_invalid_value));
     }
     return valid;
   }

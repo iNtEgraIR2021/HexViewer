@@ -9,18 +9,11 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.ListView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.widget.AppCompatCheckBox;
-import androidx.appcompat.widget.AppCompatTextView;
 import androidx.transition.AutoTransition;
 import androidx.transition.TransitionManager;
-
-import com.google.android.material.textfield.TextInputEditText;
-import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +21,7 @@ import java.util.Locale;
 
 import fr.ralala.hexviewer.application.ApplicationCtx;
 import fr.ralala.hexviewer.R;
+import fr.ralala.hexviewer.databinding.ActivityLineUpdateBinding;
 import fr.ralala.hexviewer.models.lines.LineEntry;
 import fr.ralala.hexviewer.ui.adapters.LineUpdateHexArrayAdapter;
 import fr.ralala.hexviewer.ui.adapters.holders.LineNumbersTitle;
@@ -62,8 +56,6 @@ public class LineUpdateActivity extends BaseActivity implements View.OnClickList
   public static final String RESULT_POSITION = "RESULT_POSITION";
   public static final String RESULT_NB_LINES = "RESULT_NB_LINES";
   private ApplicationCtx mApp = null;
-  private TextInputEditText mEtInputHex;
-  private TextInputLayout mTilInputHex;
   private int mPosition = -1;
   private int mNbLines = 0;
   private int mRefLength = 0;
@@ -73,13 +65,10 @@ public class LineUpdateActivity extends BaseActivity implements View.OnClickList
   private boolean mChange;
   private boolean mSequential;
   private String mHex;
-  private ImageView mIvVisibilitySource;
-  private ImageView mIvVisibilityResult;
-  private LinearLayout mLlSource;
-  private LinearLayout mLlResult;
   private LineUpdateHexArrayAdapter mAdapterSource;
   private LineUpdateHexArrayAdapter mAdapterResult;
   private MemoryMonitor mMemoryMonitor;
+  private ActivityLineUpdateBinding mBinding;
 
   /**
    * Set the base context for this ContextWrapper.
@@ -103,45 +92,32 @@ public class LineUpdateActivity extends BaseActivity implements View.OnClickList
     super.onCreate(savedInstanceState);
 
     setLayout(R.layout.activity_line_update);
+    mBinding = ActivityLineUpdateBinding.bind(findViewById(R.id.main_layout));
     mApp = (ApplicationCtx) getApplicationContext();
     mMemoryMonitor = new MemoryMonitor(mApp, mApp.getMemoryThreshold(), 2000);
-    ListView lvSource = findViewById(R.id.lv_source);
-    ListView lvResult = findViewById(R.id.lv_result);
-    mLlSource = findViewById(R.id.ll_source);
-    mLlResult = findViewById(R.id.ll_result);
-    mIvVisibilitySource = findViewById(R.id.iv_visibility_source);
-    mIvVisibilityResult = findViewById(R.id.iv_visibility_result);
-    AppCompatTextView tvLabelSource = findViewById(R.id.tv_label_source);
-    AppCompatTextView tvLabelResult = findViewById(R.id.tv_label_result);
 
     LineNumbersTitle titleSource = new LineNumbersTitle();
-    titleSource.setTitleContent(findViewById(R.id.title_content_source));
-    titleSource.setTitleLineNumbers(findViewById(R.id.title_line_numbers_source));
+    titleSource.setTitleContent(mBinding.titleContentSource);
+    titleSource.setTitleLineNumbers(mBinding.titleLineNumbersSource);
     LineNumbersTitle titleResult = new LineNumbersTitle();
-    titleResult.setTitleContent(findViewById(R.id.title_content_result));
-    titleResult.setTitleLineNumbers(findViewById(R.id.title_line_numbers_result));
+    titleResult.setTitleContent(mBinding.titleContentResult);
+    titleResult.setTitleLineNumbers(mBinding.titleLineNumbersResult);
 
-    AppCompatCheckBox chkSmartInput = findViewById(R.id.chk_smart_input);
-    AppCompatCheckBox chkOverwrite = findViewById(R.id.chk_overwrite);
-
-
-    mEtInputHex = findViewById(R.id.et_input_hex);
-    mTilInputHex = findViewById(R.id.til_input_hex);
     Configuration cfg = mApp.getConfiguration();
     if (cfg.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-      mEtInputHex.setTextSize(mApp.getListSettingsLineEditLandscape().getFontSize());
+      mBinding.etInputHex.setTextSize(mApp.getListSettingsLineEditLandscape().getFontSize());
     } else {
-      mEtInputHex.setTextSize(mApp.getListSettingsLineEditPortrait().getFontSize());
+      mBinding.etInputHex.setTextSize(mApp.getListSettingsLineEditPortrait().getFontSize());
     }
-    mIvVisibilitySource.setOnClickListener(this);
-    mIvVisibilityResult.setOnClickListener(this);
-    tvLabelSource.setOnClickListener(this);
-    tvLabelResult.setOnClickListener(this);
+    mBinding.ivVisibilitySource.setOnClickListener(this);
+    mBinding.ivVisibilityResult.setOnClickListener(this);
+    mBinding.tvLabelSource.setOnClickListener(this);
+    mBinding.tvLabelResult.setOnClickListener(this);
 
     if (!mApp.isLineEditSrcExpanded())
-      animateVisibility(mIvVisibilitySource, mLlSource);
+      animateVisibility(mBinding.ivVisibilitySource, mBinding.llSource);
     if (!mApp.isLineEditRstExpanded())
-      animateVisibility(mIvVisibilityResult, mLlResult);
+      animateVisibility(mBinding.ivVisibilityResult, mBinding.llResult);
 
     ActionBar actionBar = getSupportActionBar();
     if (actionBar != null) {
@@ -179,17 +155,17 @@ public class LineUpdateActivity extends BaseActivity implements View.OnClickList
       }
       maxLengthWithPartial = mRefLength;
     }
-    mAdapterSource = new LineUpdateHexArrayAdapter(this, lvSource, titleSource, list);
-    mAdapterResult = new LineUpdateHexArrayAdapter(this, lvResult, titleResult, new ArrayList<>(list));
+    mAdapterSource = new LineUpdateHexArrayAdapter(this, mBinding.lvSource, titleSource, list);
+    mAdapterResult = new LineUpdateHexArrayAdapter(this, mBinding.lvResult, titleResult, new ArrayList<>(list));
     mAdapterSource.setStartOffset(mStartOffset);
     mAdapterResult.setStartOffset(mStartOffset);
-    lvSource.setAdapter(mAdapterSource);
-    lvResult.setAdapter(mAdapterResult);
+    mBinding.lvSource.setAdapter(mAdapterSource);
+    mBinding.lvResult.setAdapter(mAdapterResult);
 
-    chkSmartInput.setChecked(mApp.isSmartInput());
-    chkSmartInput.setOnCheckedChangeListener((comp, isChecked) -> mApp.setSmartInput(isChecked));
-    chkOverwrite.setChecked(mApp.isOverwrite());
-    chkOverwrite.setOnCheckedChangeListener((comp, isChecked) -> mApp.setOverwrite(isChecked));
+    mBinding.chkSmartInput.setChecked(mApp.isSmartInput());
+    mBinding.chkSmartInput.setOnCheckedChangeListener((comp, isChecked) -> mApp.setSmartInput(isChecked));
+    mBinding.chkOverwrite.setChecked(mApp.isOverwrite());
+    mBinding.chkOverwrite.setOnCheckedChangeListener((comp, isChecked) -> mApp.setOverwrite(isChecked));
 
     apply(sbHex, maxLengthWithPartial);
   }
@@ -204,9 +180,9 @@ public class LineUpdateActivity extends BaseActivity implements View.OnClickList
     mHex = sbHex.toString();
     if (mHex.endsWith(" "))
       mHex = mHex.substring(0, mHex.length() - 1);
-    mEtInputHex.setText(mHex);
-    mEtInputHex.addTextChangedListener(new LineUpdateTextWatcher(
-      mAdapterResult, mTilInputHex, mApp, mShiftOffset, maxLengthWithPartial, mSequential));
+    mBinding.etInputHex.setText(mHex);
+    mBinding.etInputHex.addTextChangedListener(new LineUpdateTextWatcher(
+      mAdapterResult, mBinding.tilInputHex, mApp, mShiftOffset, maxLengthWithPartial, mSequential));
   }
 
   /**
@@ -243,9 +219,9 @@ public class LineUpdateActivity extends BaseActivity implements View.OnClickList
     }
 
     if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-      mEtInputHex.setTextSize(mApp.getListSettingsLineEditLandscape().getFontSize());
+      mBinding.etInputHex.setTextSize(mApp.getListSettingsLineEditLandscape().getFontSize());
     } else {
-      mEtInputHex.setTextSize(mApp.getListSettingsLineEditPortrait().getFontSize());
+      mBinding.etInputHex.setTextSize(mApp.getListSettingsLineEditPortrait().getFontSize());
     }
   }
 
@@ -275,12 +251,12 @@ public class LineUpdateActivity extends BaseActivity implements View.OnClickList
       finish();
       return true;
     } else if (item.getItemId() == R.id.action_delete) {
-      mEtInputHex.setText("");
+      mBinding.etInputHex.setText("");
       return true;
     } else if (item.getItemId() == R.id.action_done) {
-      final String validate = mEtInputHex.getText() == null ? "" : mEtInputHex.getText().toString().trim().replace(" ", "").toLowerCase(Locale.US);
+      final String validate = mBinding.etInputHex.getText() == null ? "" : mBinding.etInputHex.getText().toString().trim().replace(" ", "").toLowerCase(Locale.US);
       if (!SysHelper.isValidHexLine(validate)) {
-        mTilInputHex.setError(" "); /* only for the color */
+        mBinding.tilInputHex.setError(" "); /* only for the color */
         return false;
       }
       if (mSequential) {
@@ -311,23 +287,23 @@ public class LineUpdateActivity extends BaseActivity implements View.OnClickList
   @Override
   public void onClick(View v) {
     if (v.getId() == R.id.iv_visibility_source || v.getId() == R.id.tv_label_source) {
-      animateVisibility(mIvVisibilitySource, mLlSource);
-      mApp.setLineEditSrcExpanded(mLlSource.getVisibility() == View.VISIBLE);
+      animateVisibility(mBinding.ivVisibilitySource, mBinding.llSource);
+      mApp.setLineEditSrcExpanded(mBinding.llSource.getVisibility() == View.VISIBLE);
     } else if (v.getId() == R.id.iv_visibility_result || v.getId() == R.id.tv_label_result) {
-      animateVisibility(mIvVisibilityResult, mLlResult);
-      mApp.setLineEditRstExpanded(mLlResult.getVisibility() == View.VISIBLE);
+      animateVisibility(mBinding.ivVisibilityResult, mBinding.llResult);
+      mApp.setLineEditRstExpanded(mBinding.llResult.getVisibility() == View.VISIBLE);
     }
   }
 
   private void animateVisibility(ImageView iv, View v) {
     if (v.getVisibility() == View.VISIBLE) {
-      TransitionManager.beginDelayedTransition(findViewById(R.id.main_layout),
+      TransitionManager.beginDelayedTransition(mBinding.mainLayout,
         new AutoTransition());
       v.setVisibility(View.GONE);
       if (iv != null)
         iv.setImageResource(R.drawable.ic_expand_more);
     } else {
-      TransitionManager.beginDelayedTransition(findViewById(R.id.main_layout),
+      TransitionManager.beginDelayedTransition(mBinding.mainLayout,
         new AutoTransition());
       v.setVisibility(View.VISIBLE);
       if (iv != null)

@@ -10,13 +10,13 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import fr.ralala.hexviewer.application.ApplicationCtx;
 import fr.ralala.hexviewer.R;
+import fr.ralala.hexviewer.databinding.ActivityRecentlyOpenBinding;
 import fr.ralala.hexviewer.models.FileData;
 import fr.ralala.hexviewer.models.UriData;
 import fr.ralala.hexviewer.ui.adapters.RecentlyOpenRecyclerAdapter;
@@ -72,6 +72,7 @@ public class RecentlyOpenActivity extends BaseActivity implements RecentlyOpenRe
     super.onCreate(savedInstanceState);
 
     setLayout(R.layout.activity_recently_open);
+    ActivityRecentlyOpenBinding binding = ActivityRecentlyOpenBinding.bind(findViewById(R.id.main_layout));
     mApp = (ApplicationCtx) getApplicationContext();
 
     ActionBar actionBar = getSupportActionBar();
@@ -81,7 +82,6 @@ public class RecentlyOpenActivity extends BaseActivity implements RecentlyOpenRe
     }
     mApp.getRecentlyOpened().reload();
     // Lookup the recyclerview in activity layout
-    RecyclerView recyclerView = findViewById(R.id.recycler_view);
     List<UriData> list = new ArrayList<>();
     final List<FileData> li = mApp.getRecentlyOpened().list();
     int index = 0;
@@ -91,10 +91,10 @@ public class RecentlyOpenActivity extends BaseActivity implements RecentlyOpenRe
       list.add(new UriData(this, ++index, m, li.get(i)));
     }
     RecentlyOpenRecyclerAdapter adapter = new RecentlyOpenRecyclerAdapter(this, list, this);
-    recyclerView.setAdapter(adapter);
-    recyclerView.setLayoutManager(new LinearLayoutManager(this));
+    binding.recyclerView.setAdapter(adapter);
+    binding.recyclerView.setLayoutManager(new LinearLayoutManager(this));
     ItemTouchHelper itemTouchHelper = new ItemTouchHelper(adapter.getSwipeToDeleteCallback());
-    itemTouchHelper.attachToRecyclerView(recyclerView);
+    itemTouchHelper.attachToRecyclerView(binding.recyclerView);
 
     setTitle(getString(R.string.action_recently_open_title));
   }
