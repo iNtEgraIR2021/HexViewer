@@ -76,8 +76,8 @@ public class MainPopupWindow {
     mRecentlyOpen = popupView.findViewById(R.id.action_recently_open);
     ImageView actionRedo = popupView.findViewById(R.id.action_redo);
     ImageView actionUndo = popupView.findViewById(R.id.action_undo);
-    FrameLayout containerRedo = popupView.findViewById(R.id.containerRedo);
-    FrameLayout containerUndo = popupView.findViewById(R.id.containerUndo);
+    FrameLayout containerRedo = popupView.findViewById(R.id.container_redo);
+    FrameLayout containerUndo = popupView.findViewById(R.id.container_undo);
     mGoTo = popupView.findViewById(R.id.action_go_to);
 
     View.OnClickListener click = v -> {

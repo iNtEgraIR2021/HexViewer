@@ -52,11 +52,11 @@ public class PayloadHexHelper {
   public void onCreate(final AppCompatActivity activity, ICommonUI commonUI) {
     mCommonUI = commonUI;
     mApp = mCommonUI.getApplicationCtx();
-    mPayloadViewContainer = activity.findViewById(R.id.payloadViewContainer);
+    mPayloadViewContainer = activity.findViewById(R.id.payload_view_container);
     mTitle = activity.findViewById(R.id.title);
-    mTitleLineNumbers = activity.findViewById(R.id.titleLineNumbers);
-    mTitleContent = activity.findViewById(R.id.titleContent);
-    mPayloadHex = activity.findViewById(R.id.payloadView);
+    mTitleLineNumbers = activity.findViewById(R.id.title_line_numbers);
+    mTitleContent = activity.findViewById(R.id.title_content);
+    mPayloadHex = activity.findViewById(R.id.payload_view);
 
     mPayloadHex.setVisibility(View.GONE);
     mPayloadViewContainer.setVisibility(View.GONE);

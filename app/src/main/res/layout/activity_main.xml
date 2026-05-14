@@ -6,7 +6,7 @@ License: GPLv3
 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
-  android:id="@+id/mainLayout"
+  android:id="@+id/main_layout"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
   android:orientation="vertical"
@@ -14,69 +14,69 @@ License: GPLv3
   android:layoutDirection="ltr">
 
   <androidx.constraintlayout.widget.ConstraintLayout
-    android:id="@+id/idleView"
+    android:id="@+id/idle_view"
     android:visibility="gone"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <androidx.appcompat.widget.AppCompatTextView
-      android:id="@+id/pleaseOpenFile"
+      android:id="@+id/please_open_file"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:text="@string/please_open_file"
-      android:textSize="@dimen/activity_main_please_open_file_textSize"
+      android:textSize="@dimen/activity_main_please_open_file_text_size"
       android:textAlignment="center"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
-      app:layout_constraintBottom_toTopOf="@+id/guideline50" />
+      app:layout_constraintBottom_toTopOf="@+id/guideline_50" />
 
     <LinearLayout
-      android:id="@+id/linearLayout"
+      android:id="@+id/linear_layout"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:orientation="vertical"
       android:padding="5dp"
-      app:layout_constraintBottom_toBottomOf="@+id/guideline95">
+      app:layout_constraintBottom_toBottomOf="@+id/guideline_95">
 
       <Button
-        android:id="@+id/buttonOpenFile"
+        android:id="@+id/button_open_file"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/action_open_title_button"
-        android:textSize="@dimen/activity_main_buttons_textSize" />
+        android:textSize="@dimen/activity_main_buttons_text_size" />
 
       <Button
-        android:id="@+id/buttonPartialOpenFile"
+        android:id="@+id/button_partial_open_file"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/action_open_sequential_title_button"
-        android:textSize="@dimen/activity_main_buttons_textSize" />
+        android:textSize="@dimen/activity_main_buttons_text_size" />
 
       <Button
-        android:id="@+id/buttonRecentlyOpen"
+        android:id="@+id/button_recently_open"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/action_recently_open_title"
-        android:textSize="@dimen/activity_main_buttons_textSize" />
+        android:textSize="@dimen/activity_main_buttons_text_size" />
     </LinearLayout>
 
     <androidx.constraintlayout.widget.Guideline
-      android:id="@+id/guideline50"
+      android:id="@+id/guideline_50"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:orientation="horizontal"
       app:layout_constraintGuide_percent="0.5" />
     <androidx.constraintlayout.widget.Guideline
-      android:id="@+id/guideline95"
+      android:id="@+id/guideline_95"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:orientation="horizontal"
       app:layout_constraintGuide_percent="0.95" />
   </androidx.constraintlayout.widget.ConstraintLayout>
   <RelativeLayout
-    android:id="@+id/payloadViewContainer"
+    android:id="@+id/payload_view_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -90,42 +90,42 @@ License: GPLv3
       android:orientation="horizontal">
 
       <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/titleLineNumbers"
+        android:id="@+id/title_line_numbers"
         android:gravity="center_vertical"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@null"
-        android:textSize="@dimen/listview_hex_row_textSize"
+        android:textSize="@dimen/listview_hex_row_text_size"
         android:fontFamily="@font/jetbrains_mono"
         android:paddingEnd="5dp"
         android:paddingStart="2dp"/>
       <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/titleContent"
+        android:id="@+id/title_content"
         android:gravity="center_vertical"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@null"
-        android:textSize="@dimen/listview_hex_row_textSize"
+        android:textSize="@dimen/listview_hex_row_text_size"
         android:fontFamily="@font/jetbrains_mono" />
 
     </LinearLayout>
 
     <ListView
-      android:id="@+id/payloadView"
+      android:id="@+id/payload_view"
       android:visibility="gone"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
       android:layout_below="@id/title"
       android:padding="1dp"
-      android:textSize="@dimen/activity_main_payload_view_textSize"
+      android:textSize="@dimen/activity_main_payload_view_text_size"
       android:fastScrollEnabled="true"
       android:scrollbarStyle="outsideOverlay"
-      android:scrollbarSize="@dimen/activity_main_payload_view_scrollbarSize"
+      android:scrollbarSize="@dimen/activity_main_payload_view_scrollbar_size"
       android:fontFamily="@font/jetbrains_mono" />
   </RelativeLayout>
 
   <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-    android:id="@+id/payloadPlainSwipeRefreshLayout"
+    android:id="@+id/payload_plain_swipe_refresh_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <ListView
@@ -134,10 +134,10 @@ License: GPLv3
       android:layout_height="match_parent"
       android:visibility="gone"
       android:padding="1dp"
-      android:textSize="@dimen/activity_main_payload_plain_swipe_refresh_layout_textSize"
+      android:textSize="@dimen/activity_main_payload_plain_swipe_refresh_layout_text_size"
       android:fastScrollEnabled="true"
       android:scrollbarStyle="outsideOverlay"
-      android:scrollbarSize="@dimen/activity_main_payload_view_scrollbarSize"
+      android:scrollbarSize="@dimen/activity_main_payload_view_scrollbar_size"
       android:fontFamily="@font/jetbrains_mono"/>
   </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </LinearLayout>

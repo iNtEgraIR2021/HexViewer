@@ -59,7 +59,7 @@ public class PayloadPlainSwipe {
     mActivity = activity;
     mCommonUI = commonUI;
     mPayloadPlain = activity.findViewById(R.id.payloadPlain);
-    mPayloadPlainSwipeRefreshLayout = activity.findViewById(R.id.payloadPlainSwipeRefreshLayout);
+    mPayloadPlainSwipeRefreshLayout = activity.findViewById(R.id.payload_plain_swipe_refresh_layout);
     // Configure SwipeRefreshLayout
     mPayloadPlainSwipeRefreshLayout.setOnRefreshListener(() -> refresh(false));
     mPayloadPlainSwipeRefreshLayout.setColorSchemeResources(

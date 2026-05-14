@@ -149,11 +149,11 @@ public class PartialOpenActivity extends BaseActivity implements AdapterView.OnI
     setLayout(R.layout.activity_partial_open);
 
     mTypefaceMonospace = ResourcesCompat.getFont(this, R.font.jetbrains_mono);
-    mTextSizePart = findViewById(R.id.textSizePart);
-    mSpUnit = findViewById(R.id.spUnit);
-    mSpInputType = findViewById(R.id.spInputType);
-    mTilStart = findViewById(R.id.tilStart);
-    mTilEnd = findViewById(R.id.tilEnd);
+    mTextSizePart = findViewById(R.id.text_size_part);
+    mSpUnit = findViewById(R.id.sp_unit);
+    mSpInputType = findViewById(R.id.sp_input_type);
+    mTilStart = findViewById(R.id.til_start);
+    mTilEnd = findViewById(R.id.til_end);
 
     ActionBar actionBar = getSupportActionBar();
     if (actionBar != null) {
@@ -180,9 +180,9 @@ public class PartialOpenActivity extends BaseActivity implements AdapterView.OnI
   }
 
   private void apply(boolean isSequential, long startOffset, long endOffset, long size) {
-    AppCompatTextView textFileSize = findViewById(R.id.textSize);
-    TextInputEditText tietStart = findViewById(R.id.tietStart);
-    TextInputEditText tietEnd = findViewById(R.id.tietEnd);
+    AppCompatTextView textFileSize = findViewById(R.id.text_size);
+    TextInputEditText tietStart = findViewById(R.id.tiet_start);
+    TextInputEditText tietEnd = findViewById(R.id.tiet_end);
     long max;
     long start;
     long end;

@@ -7,7 +7,7 @@ License: GPLv3
 <resources>
   <!-- Application theme extensions -->
   <style name="AppTheme.PreferenceTheme" parent="@style/PreferenceThemeOverlay">
-    <item name="android:textSize">@dimen/preferences_textSize</item>
+    <item name="android:textSize">@dimen/preferences_text_size</item>
   </style>
   <style name="AppTheme.ActionBar" parent="ThemeOverlay.AppCompat.DayNight.ActionBar">
     <item name="android:textColorPrimary">@color/actionMenuTextColor</item>
@@ -30,53 +30,53 @@ License: GPLv3
   <!-- Button styles -->
   <style name="NegativeButtonStyle" parent="Widget.AppCompat.Button.ButtonBar.AlertDialog">
     <item name="android:textColor">@color/accent_color_enabled</item>
-    <item name="android:textSize">@dimen/controls_textSize</item>
+    <item name="android:textSize">@dimen/controls_text_size</item>
   </style>
 
   <style name="NeutralButtonStyle" parent="Widget.AppCompat.Button.ButtonBar.AlertDialog">
     <item name="android:textColor">@color/accent_color_enabled</item>
-    <item name="android:textSize">@dimen/controls_textSize</item>
+    <item name="android:textSize">@dimen/controls_text_size</item>
   </style>
 
   <style name="PositiveButtonStyle" parent="Widget.AppCompat.Button.ButtonBar.AlertDialog">
     <item name="android:textColor">@color/accent_color_enabled</item>
-    <item name="android:textSize">@dimen/controls_textSize</item>
+    <item name="android:textSize">@dimen/controls_text_size</item>
   </style>
 
   <!-- Form controls -->
   <style name="AppTheme.CheckBoxStyle" parent="Widget.AppCompat.CompoundButton.CheckBox">
     <item name="android:textColor">@color/text_color_enabled</item>
     <item name="buttonTint">@color/accent_color_enabled</item>
-    <item name="android:textSize">@dimen/controls_textSize</item>
+    <item name="android:textSize">@dimen/controls_text_size</item>
   </style>
 
   <style name="AppTheme.RadioButtonStyle" parent="Widget.AppCompat.CompoundButton.RadioButton">
     <item name="android:textColor">@color/text_color_enabled</item>
     <item name="buttonTint">@color/accent_color_enabled</item>
-    <item name="android:textSize">@dimen/controls_textSize</item>
+    <item name="android:textSize">@dimen/controls_text_size</item>
   </style>
 
   <!-- Miscellaneous -->
   <style name="AppTheme.ErrorTextAppearance" parent="@android:style/TextAppearance">
     <item name="android:textColor">@color/colorResultError</item>
-    <item name="android:textSize">@dimen/app_theme_error_text_appearance_textSize</item>
+    <item name="android:textSize">@dimen/app_theme_error_text_appearance_text_size</item>
   </style>
 
   <style name="AppTheme.HintPrefTextAppearance" parent="@android:style/TextAppearance">
     <item name="android:textColor">@color/colorAccent</item>
-    <item name="android:textSize">@dimen/app_theme_hint_text_appearance_textSize</item>
+    <item name="android:textSize">@dimen/app_theme_hint_text_appearance_text_size</item>
   </style>
 
   <style name="TextLabelSize" parent="TextAppearance.Design.Hint">
-    <item name="android:textSize">@dimen/controls_textSize</item>
+    <item name="android:textSize">@dimen/controls_text_size</item>
   </style>
 
   <style name="AppTheme.InputLabel" parent="TextAppearance.AppCompat.Caption">
     <item name="android:textColor">@color/textColor</item>
-    <item name="android:textSize">@dimen/input_label_textSize</item>
-    <item name="android:paddingTop">@dimen/input_label_paddingTop</item>
-    <item name="android:paddingBottom">@dimen/input_label_paddingBottom</item>
-    <item name="android:paddingStart">@dimen/input_label_paddingStart</item>
-    <item name="android:paddingEnd">@dimen/input_label_paddingEnd</item>
+    <item name="android:textSize">@dimen/input_label_text_size</item>
+    <item name="android:paddingTop">@dimen/input_label_padding_top</item>
+    <item name="android:paddingBottom">@dimen/input_label_padding_bottom</item>
+    <item name="android:paddingStart">@dimen/input_label_padding_start</item>
+    <item name="android:paddingEnd">@dimen/input_label_padding_end</item>
   </style>
 </resources>

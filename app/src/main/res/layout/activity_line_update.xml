@@ -6,7 +6,7 @@ License: GPLv3
 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
-  android:id="@+id/base_view"
+  android:id="@+id/main_layout"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
   android:paddingStart="10dp"
@@ -17,16 +17,16 @@ License: GPLv3
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
     <androidx.appcompat.widget.AppCompatTextView
-      android:id="@+id/tvLabelSource"
+      android:id="@+id/tv_label_source"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_alignParentStart="true"
       android:layout_alignParentTop="true"
-      android:layout_toStartOf="@+id/ivVisibilitySource"
+      android:layout_toStartOf="@+id/iv_visibility_source"
       android:text="@string/source"
       style="@style/AppTheme.InputLabel"/>
     <ImageView
-      android:id="@+id/ivVisibilitySource"
+      android:id="@+id/iv_visibility_source"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:src="@drawable/ic_expand_less"
@@ -35,7 +35,7 @@ License: GPLv3
       android:layout_alignParentEnd="true"/>
   </RelativeLayout>
   <LinearLayout
-    android:id="@+id/llSource"
+    android:id="@+id/ll_source"
     android:layout_width="match_parent"
     android:layout_height="0dp"
     android:layout_weight="0.25"
@@ -43,34 +43,34 @@ License: GPLv3
     android:layoutDirection="ltr">
 
     <LinearLayout
-      android:id="@+id/titleSource"
+      android:id="@+id/title_source"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:orientation="horizontal">
 
       <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/titleLineNumbersSource"
+        android:id="@+id/title_line_numbers_source"
         android:gravity="center_vertical"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@null"
-        android:textSize="@dimen/activity_line_update_lv_textSize"
+        android:textSize="@dimen/activity_line_update_lv_text_size"
         android:fontFamily="@font/jetbrains_mono"
         android:paddingEnd="5dp"
         android:paddingStart="2dp"/>
       <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/titleContentSource"
+        android:id="@+id/title_content_source"
         android:textColor="@color/colorNumbers"
         android:gravity="center_vertical"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/title_content8"
-        android:textSize="@dimen/activity_line_update_lv_textSize"
+        android:textSize="@dimen/activity_line_update_lv_text_size"
         android:fontFamily="@font/jetbrains_mono" />
     </LinearLayout>
 
     <ListView
-      android:id="@+id/lvSource"
+      android:id="@+id/lv_source"
       android:layout_width="match_parent"
       android:layout_height="match_parent"/>
   </LinearLayout>
@@ -79,16 +79,16 @@ License: GPLv3
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
     <androidx.appcompat.widget.AppCompatTextView
-      android:id="@+id/tvLabelResult"
+      android:id="@+id/tv_label_result"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_alignParentStart="true"
       android:layout_alignParentTop="true"
-      android:layout_toStartOf="@+id/ivVisibilityResult"
+      android:layout_toStartOf="@+id/iv_visibility_result"
       android:text="@string/result"
       style="@style/AppTheme.InputLabel" />
     <ImageView
-      android:id="@+id/ivVisibilityResult"
+      android:id="@+id/iv_visibility_result"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:src="@drawable/ic_expand_less"
@@ -97,7 +97,7 @@ License: GPLv3
       android:layout_alignParentEnd="true"/>
   </RelativeLayout>
   <LinearLayout
-    android:id="@+id/llResult"
+    android:id="@+id/ll_result"
     android:layout_width="match_parent"
     android:layout_height="0dp"
     android:layout_weight="0.25"
@@ -105,34 +105,34 @@ License: GPLv3
     android:layoutDirection="ltr">
 
     <LinearLayout
-      android:id="@+id/titleResult"
+      android:id="@+id/title_result"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:orientation="horizontal">
 
       <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/titleLineNumbersResult"
+        android:id="@+id/title_line_numbers_result"
         android:gravity="center_vertical"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@null"
-        android:textSize="@dimen/activity_line_update_lv_textSize"
+        android:textSize="@dimen/activity_line_update_lv_text_size"
         android:fontFamily="@font/jetbrains_mono"
         android:paddingEnd="5dp"
         android:paddingStart="2dp"/>
       <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/titleContentResult"
+        android:id="@+id/title_content_result"
         android:textColor="@color/colorNumbers"
         android:gravity="center_vertical"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/title_content8"
-        android:textSize="@dimen/activity_line_update_lv_textSize"
+        android:textSize="@dimen/activity_line_update_lv_text_size"
         android:fontFamily="@font/jetbrains_mono" />
     </LinearLayout>
 
     <ListView
-      android:id="@+id/lvResult"
+      android:id="@+id/lv_result"
       android:layout_width="match_parent"
       android:layout_height="match_parent"/>
   </LinearLayout>
@@ -143,46 +143,46 @@ License: GPLv3
     android:layout_weight="0.5"
     android:orientation="vertical">
     <androidx.constraintlayout.widget.Guideline
-      android:id="@+id/guidelineV50"
+      android:id="@+id/guideline_v50"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:orientation="vertical"
       app:layout_constraintGuide_percent="0.50" />
     <View
-      android:id="@+id/padding10"
+      android:id="@+id/padding_10"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
       android:layout_width="match_parent"
       android:layout_height="5dp"/>
 
     <androidx.appcompat.widget.AppCompatCheckBox
-      android:id="@+id/chkSmartInput"
+      android:id="@+id/chk_smart_input"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@id/padding10"
-      app:layout_constraintEnd_toStartOf="@id/guidelineV50"
+      app:layout_constraintTop_toBottomOf="@id/padding_10"
+      app:layout_constraintEnd_toStartOf="@id/guideline_v50"
       android:layout_width="0dp"
       android:layout_height="wrap_content"
       android:text="@string/smart_input"/>
     <androidx.appcompat.widget.AppCompatCheckBox
-      android:id="@+id/chkOverwrite"
-      app:layout_constraintStart_toStartOf="@id/guidelineV50"
-      app:layout_constraintTop_toBottomOf="@id/padding10"
+      android:id="@+id/chk_overwrite"
+      app:layout_constraintStart_toStartOf="@id/guideline_v50"
+      app:layout_constraintTop_toBottomOf="@id/padding_10"
       app:layout_constraintEnd_toEndOf="parent"
       android:layout_width="0dp"
       android:layout_height="wrap_content"
       android:text="@string/overwrite"/>
 
     <androidx.appcompat.widget.AppCompatTextView
-      android:id="@+id/tvLabel"
+      android:id="@+id/tv_label"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:text="@string/update_hint_hex"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@id/chkSmartInput"
+      app:layout_constraintTop_toBottomOf="@id/chk_smart_input"
       style="@style/AppTheme.InputLabel"  />
 
     <com.google.android.material.textfield.TextInputLayout
-      android:id="@+id/tilInputHex"
+      android:id="@+id/til_input_hex"
       android:layout_width="match_parent"
       android:layout_height="0dp"
       app:helperTextTextColor="@color/colorAccent"
@@ -190,16 +190,16 @@ License: GPLv3
       app:errorEnabled="true"
       app:errorTextAppearance="@style/AppTheme.ErrorTextAppearance"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@id/tvLabel"
+      app:layout_constraintTop_toBottomOf="@id/tv_label"
       app:layout_constraintBottom_toBottomOf="parent"
       app:hintEnabled="false">
 
       <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/etInputHex"
+        android:id="@+id/et_input_hex"
         android:hint="@null"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="@dimen/activity_line_update_lv_textSize"
+        android:textSize="@dimen/activity_line_update_lv_text_size"
         android:importantForAutofill="no"
         android:inputType="textVisiblePassword|textMultiLine"
         android:fontFamily="@font/jetbrains_mono"

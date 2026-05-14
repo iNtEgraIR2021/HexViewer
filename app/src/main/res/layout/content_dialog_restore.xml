@@ -15,13 +15,13 @@ License: GPLv3
     android:layout_height="wrap_content"
     android:padding="10dp"
     android:text="@string/dialog_restore_question"
-    android:textSize="@dimen/content_dialog_restore_textSize" />
+    android:textSize="@dimen/content_dialog_restore_text_size" />
 
   <CheckBox
-    android:id="@+id/deleteRecent"
+    android:id="@+id/delete_recent"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="10dp"
     android:text="@string/dialog_restore_recent"
-    android:textSize="@dimen/content_dialog_restore_textSize" />
+    android:textSize="@dimen/content_dialog_restore_text_size" />
 </LinearLayout>

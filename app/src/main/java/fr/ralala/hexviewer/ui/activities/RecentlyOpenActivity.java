@@ -81,7 +81,7 @@ public class RecentlyOpenActivity extends BaseActivity implements RecentlyOpenRe
     }
     mApp.getRecentlyOpened().reload();
     // Lookup the recyclerview in activity layout
-    RecyclerView recyclerView = findViewById(R.id.recyclerView);
+    RecyclerView recyclerView = findViewById(R.id.recycler_view);
     List<UriData> list = new ArrayList<>();
     final List<FileData> li = mApp.getRecentlyOpened().list();
     int index = 0;

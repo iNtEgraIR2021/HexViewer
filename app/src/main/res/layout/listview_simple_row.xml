@@ -16,7 +16,7 @@ License: GPLv3
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:text="@null"
-    android:textSize="@dimen/listview_simple_row_textSize"
+    android:textSize="@dimen/listview_simple_row_text_size"
     android:fontFamily="@font/jetbrains_mono" />
 
 </LinearLayout> 

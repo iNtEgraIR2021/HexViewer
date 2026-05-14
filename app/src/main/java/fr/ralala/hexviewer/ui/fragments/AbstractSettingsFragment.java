@@ -89,7 +89,7 @@ public abstract class AbstractSettingsFragment extends PreferenceFragmentCompat 
     builder.setView(factory.inflate(R.layout.content_dialog_pref_input, null));
     final AlertDialog dialog = builder.create();
     dialog.show();
-    EditText et = dialog.findViewById(R.id.editText);
+    EditText et = dialog.findViewById(R.id.edit_text);
     if (et != null) {
       int inputType = InputType.TYPE_CLASS_NUMBER;
       String def;

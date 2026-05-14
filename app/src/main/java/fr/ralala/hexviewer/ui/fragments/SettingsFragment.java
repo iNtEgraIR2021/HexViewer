@@ -227,7 +227,7 @@ public class SettingsFragment extends AbstractSettingsFragment implements Prefer
     builder.setView(factory.inflate(R.layout.content_dialog_restore, null));
     final AlertDialog dialog = builder.create();
     dialog.show();
-    final CheckBox cb = dialog.findViewById(R.id.deleteRecent);
+    final CheckBox cb = dialog.findViewById(R.id.delete_recent);
     dialog.getButton(DialogInterface.BUTTON_POSITIVE).setOnClickListener(v -> {
       mApp.loadDefaultValues(cb != null && cb.isChecked());
       mActivity.finish();

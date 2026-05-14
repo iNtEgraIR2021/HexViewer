@@ -105,28 +105,28 @@ public class LineUpdateActivity extends BaseActivity implements View.OnClickList
     setLayout(R.layout.activity_line_update);
     mApp = (ApplicationCtx) getApplicationContext();
     mMemoryMonitor = new MemoryMonitor(mApp, mApp.getMemoryThreshold(), 2000);
-    ListView lvSource = findViewById(R.id.lvSource);
-    ListView lvResult = findViewById(R.id.lvResult);
-    mLlSource = findViewById(R.id.llSource);
-    mLlResult = findViewById(R.id.llResult);
-    mIvVisibilitySource = findViewById(R.id.ivVisibilitySource);
-    mIvVisibilityResult = findViewById(R.id.ivVisibilityResult);
-    AppCompatTextView tvLabelSource = findViewById(R.id.tvLabelSource);
-    AppCompatTextView tvLabelResult = findViewById(R.id.tvLabelResult);
+    ListView lvSource = findViewById(R.id.lv_source);
+    ListView lvResult = findViewById(R.id.lv_result);
+    mLlSource = findViewById(R.id.ll_source);
+    mLlResult = findViewById(R.id.ll_result);
+    mIvVisibilitySource = findViewById(R.id.iv_visibility_source);
+    mIvVisibilityResult = findViewById(R.id.iv_visibility_result);
+    AppCompatTextView tvLabelSource = findViewById(R.id.tv_label_source);
+    AppCompatTextView tvLabelResult = findViewById(R.id.tv_label_result);
 
     LineNumbersTitle titleSource = new LineNumbersTitle();
-    titleSource.setTitleContent(findViewById(R.id.titleContentSource));
-    titleSource.setTitleLineNumbers(findViewById(R.id.titleLineNumbersSource));
+    titleSource.setTitleContent(findViewById(R.id.title_content_source));
+    titleSource.setTitleLineNumbers(findViewById(R.id.title_line_numbers_source));
     LineNumbersTitle titleResult = new LineNumbersTitle();
-    titleResult.setTitleContent(findViewById(R.id.titleContentResult));
-    titleResult.setTitleLineNumbers(findViewById(R.id.titleLineNumbersResult));
+    titleResult.setTitleContent(findViewById(R.id.title_content_result));
+    titleResult.setTitleLineNumbers(findViewById(R.id.title_line_numbers_result));
 
-    AppCompatCheckBox chkSmartInput = findViewById(R.id.chkSmartInput);
-    AppCompatCheckBox chkOverwrite = findViewById(R.id.chkOverwrite);
+    AppCompatCheckBox chkSmartInput = findViewById(R.id.chk_smart_input);
+    AppCompatCheckBox chkOverwrite = findViewById(R.id.chk_overwrite);
 
 
-    mEtInputHex = findViewById(R.id.etInputHex);
-    mTilInputHex = findViewById(R.id.tilInputHex);
+    mEtInputHex = findViewById(R.id.et_input_hex);
+    mTilInputHex = findViewById(R.id.til_input_hex);
     Configuration cfg = mApp.getConfiguration();
     if (cfg.orientation == Configuration.ORIENTATION_LANDSCAPE) {
       mEtInputHex.setTextSize(mApp.getListSettingsLineEditLandscape().getFontSize());
@@ -310,10 +310,10 @@ public class LineUpdateActivity extends BaseActivity implements View.OnClickList
    */
   @Override
   public void onClick(View v) {
-    if (v.getId() == R.id.ivVisibilitySource || v.getId() == R.id.tvLabelSource) {
+    if (v.getId() == R.id.iv_visibility_source || v.getId() == R.id.tv_label_source) {
       animateVisibility(mIvVisibilitySource, mLlSource);
       mApp.setLineEditSrcExpanded(mLlSource.getVisibility() == View.VISIBLE);
-    } else if (v.getId() == R.id.ivVisibilityResult || v.getId() == R.id.tvLabelResult) {
+    } else if (v.getId() == R.id.iv_visibility_result || v.getId() == R.id.tv_label_result) {
       animateVisibility(mIvVisibilityResult, mLlResult);
       mApp.setLineEditRstExpanded(mLlResult.getVisibility() == View.VISIBLE);
     }
@@ -321,13 +321,13 @@ public class LineUpdateActivity extends BaseActivity implements View.OnClickList
 
   private void animateVisibility(ImageView iv, View v) {
     if (v.getVisibility() == View.VISIBLE) {
-      TransitionManager.beginDelayedTransition(findViewById(R.id.base_view),
+      TransitionManager.beginDelayedTransition(findViewById(R.id.main_layout),
         new AutoTransition());
       v.setVisibility(View.GONE);
       if (iv != null)
         iv.setImageResource(R.drawable.ic_expand_more);
     } else {
-      TransitionManager.beginDelayedTransition(findViewById(R.id.base_view),
+      TransitionManager.beginDelayedTransition(findViewById(R.id.main_layout),
         new AutoTransition());
       v.setVisibility(View.VISIBLE);
       if (iv != null)

@@ -137,17 +137,17 @@ public class MainActivity extends BaseActivity implements ICommonUI {
 
     mPopup = new MainPopupWindow(this, mUnDoRedo, this::onPopupItemClick);
 
-    LinearLayout mainLayout = findViewById(R.id.mainLayout);
-    mIdleView = findViewById(R.id.idleView);
+    LinearLayout mainLayout = findViewById(R.id.main_layout);
+    mIdleView = findViewById(R.id.idle_view);
     mIdleView.setVisibility(View.VISIBLE);
 
-    findViewById(R.id.buttonOpenFile).setOnClickListener(v ->
+    findViewById(R.id.button_open_file).setOnClickListener(v ->
       onPopupItemClick(R.id.action_open));
-    findViewById(R.id.buttonPartialOpenFile).setOnClickListener(v ->
+    findViewById(R.id.button_partial_open_file).setOnClickListener(v ->
       onPopupItemClick(R.id.action_open_sequential));
-    findViewById(R.id.buttonRecentlyOpen).setOnClickListener(v ->
+    findViewById(R.id.button_recently_open).setOnClickListener(v ->
       onPopupItemClick(R.id.action_recently_open));
-    findViewById(R.id.buttonRecentlyOpen).setEnabled(!mApp.getRecentlyOpened().list().isEmpty());
+    findViewById(R.id.button_recently_open).setEnabled(!mApp.getRecentlyOpened().list().isEmpty());
     mPayloadHexHelper = new PayloadHexHelper();
     mPayloadHexHelper.onCreate(this, this);
 
@@ -196,7 +196,7 @@ public class MainActivity extends BaseActivity implements ICommonUI {
       mPopup.dismiss();
     mApp.applyApplicationLanguage(this);
     /* refresh */
-    findViewById(R.id.buttonRecentlyOpen).setEnabled(!((ApplicationCtx) getApplicationContext()).getRecentlyOpened().list().isEmpty());
+    findViewById(R.id.button_recently_open).setEnabled(!((ApplicationCtx) getApplicationContext()).getRecentlyOpened().list().isEmpty());
     onOpenResult(!FileData.isEmpty(mFileData), false);
     if (mPayloadHexHelper.isVisible())
       mPayloadHexHelper.refreshAdapter();
@@ -708,7 +708,7 @@ public class MainActivity extends BaseActivity implements ICommonUI {
       mPayloadPlainSwipe.getAdapter().clear();
       mPayloadHexHelper.getAdapter().clear();
       cancelSearch();
-      findViewById(R.id.buttonRecentlyOpen).setEnabled(!mApp.getRecentlyOpened().list().isEmpty());
+      findViewById(R.id.button_recently_open).setEnabled(!mApp.getRecentlyOpened().list().isEmpty());
     };
     if (mUnDoRedo.isChanged()) {// a save operation is pending?
       UIHelper.confirmFileChanged(this, mFileData, r,

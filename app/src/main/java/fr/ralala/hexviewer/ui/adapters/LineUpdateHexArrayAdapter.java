@@ -184,9 +184,9 @@ public class LineUpdateHexArrayAdapter extends ArrayAdapter<String> {
         v = inflater.inflate(ID, null);
         HolderHex holder = new HolderHex();
         holder.setContent(v.findViewById(R.id.content));
-        holder.setLineNumbers(v.findViewById(R.id.lineNumbers));
-        holder.getContent().setTextSize(TypedValue.COMPLEX_UNIT_PX, getContext().getResources().getDimension(R.dimen.activity_line_update_lv_textSize));
-        holder.getLineNumbers().setTextSize(TypedValue.COMPLEX_UNIT_PX, getContext().getResources().getDimension(R.dimen.activity_line_update_lv_textSize));
+        holder.setLineNumbers(v.findViewById(R.id.line_numbers));
+        holder.getContent().setTextSize(TypedValue.COMPLEX_UNIT_PX, getContext().getResources().getDimension(R.dimen.activity_line_update_lv_text_size));
+        holder.getLineNumbers().setTextSize(TypedValue.COMPLEX_UNIT_PX, getContext().getResources().getDimension(R.dimen.activity_line_update_lv_text_size));
         v.setTag(holder);
       }
     }

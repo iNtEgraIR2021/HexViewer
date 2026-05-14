@@ -63,8 +63,8 @@ public class SaveDialog {
       dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN |
         WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
     dialog.show();
-    EditText et = dialog.findViewById(R.id.editText);
-    TextInputLayout layout = dialog.findViewById(R.id.tilEditText);
+    EditText et = dialog.findViewById(R.id.edit_text);
+    TextInputLayout layout = dialog.findViewById(R.id.til_edit_text);
     if (et != null && layout != null) {
       et.setText(defaultValue);
       et.addTextChangedListener(UIHelper.getResetLayoutWatcher(layout, false));

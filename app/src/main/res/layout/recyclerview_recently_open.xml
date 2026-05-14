@@ -21,7 +21,7 @@ License: GPLv3
     android:layout_alignParentTop="true"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:textSize="@dimen/recently_open_textSize"
+    android:textSize="@dimen/recently_open_text_size"
     android:layout_marginEnd="5dp"/>
   <androidx.appcompat.widget.AppCompatTextView
     android:id="@+id/name"
@@ -31,7 +31,7 @@ License: GPLv3
     android:layout_toEndOf="@id/index"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:textSize="@dimen/recently_open_textSize"/>
+    android:textSize="@dimen/recently_open_text_size"/>
   <androidx.appcompat.widget.AppCompatTextView
     android:id="@+id/detail"
     android:gravity="start"
@@ -41,5 +41,5 @@ License: GPLv3
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:textStyle="italic"
-    android:textSize="@dimen/recently_open_textSize"/>
+    android:textSize="@dimen/recently_open_text_size"/>
 </RelativeLayout>

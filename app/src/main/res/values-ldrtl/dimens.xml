@@ -6,32 +6,32 @@ License: GPLv3
 -->
 <resources>
   <!-- activity_main.xml -->
-  <dimen name="activity_main_please_open_file_textSize">18sp</dimen>
-  <dimen name="activity_main_buttons_textSize">18sp</dimen>*
+  <dimen name="activity_main_please_open_file_text_size">18sp</dimen>
+  <dimen name="activity_main_buttons_text_size">18sp</dimen>*
   <!-- main_popup.xml -->
-  <dimen name="main_popup_items_textSize">18sp</dimen>
+  <dimen name="main_popup_items_text_size">18sp</dimen>
 
   <!-- progress_dialog -->
-  <dimen name="progress_dialog_textSize">22sp</dimen>
+  <dimen name="progress_dialog_text_size">22sp</dimen>
 
   <!-- recently_open -->
-  <dimen name="recently_open_textSize">20sp</dimen>
+  <dimen name="recently_open_text_size">20sp</dimen>
 
   <!-- InputLabel -->
-  <dimen name="input_label_textSize">18sp</dimen>
+  <dimen name="input_label_text_size">18sp</dimen>
 
   <!-- AppTheme.ErrorTextAppearance -->
-  <dimen name="app_theme_error_text_appearance_textSize">18sp</dimen>
+  <dimen name="app_theme_error_text_appearance_text_size">18sp</dimen>
 
   <!-- AppTheme.HintTextAppearance -->
-  <dimen name="app_theme_hint_text_appearance_textSize">18sp</dimen>
+  <dimen name="app_theme_hint_text_appearance_text_size">18sp</dimen>
 
   <!-- Controls -->
-  <dimen name="controls_textSize">18sp</dimen>
+  <dimen name="controls_text_size">18sp</dimen>
 
   <!-- Preferences -->
-  <dimen name="preferences_textSize">18sp</dimen>
+  <dimen name="preferences_text_size">18sp</dimen>
 
   <!-- content_dialog_restore -->
-  <dimen name="content_dialog_restore_textSize">22sp</dimen>
+  <dimen name="content_dialog_restore_text_size">22sp</dimen>
 </resources>
