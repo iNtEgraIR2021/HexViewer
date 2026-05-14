@@ -9,7 +9,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import java.util.Vector;
+import java.util.ArrayList;
+import java.util.List;
 
 import fr.ralala.hexviewer.application.ApplicationCtx;
 import fr.ralala.hexviewer.R;
@@ -67,7 +68,7 @@ public class BaseActivity extends AppCompatActivity {
 
   private String getConfigurationChangedTrigger(@NonNull Configuration oldConfig, @NonNull Configuration newConfig)
   {
-    Vector<String> vec = new Vector<>();
+    List<String> vec = new ArrayList<>();
     if (oldConfig.orientation != newConfig.orientation)
       vec.add("Orientation");
     if (oldConfig.screenLayout != newConfig.screenLayout)
