@@ -100,7 +100,7 @@ jobs:
             exit 1
           fi
       - name: Upload Signed APK artifact
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         with:
           name: HexViewer-release-signed-${{ github.ref_name }}
           path: ./HexViewer-release-signed-${{ github.ref_name }}.apk
@@ -146,7 +146,7 @@ jobs:
           CONTENT=$(cat "$CHANGELOG_FILE")
           printf "content<<EOF\n# Changelog\n%s\nEOF\n" "$CONTENT" >> $GITHUB_OUTPUT
       - name: Create GitHub Release
-        uses: softprops/action-gh-release@v2
+        uses: softprops/action-gh-release@v3
         with:
           tag_name: ${{ env.TAG_NAME }}
           name: Version ${{ env.VERSION_NUMBER }}
