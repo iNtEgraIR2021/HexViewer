@@ -7,8 +7,8 @@ import android.text.TextWatcher;
 import android.widget.EditText;
 
 import androidx.annotation.NonNull;
-import androidx.emoji.text.EmojiCompat;
-import androidx.emoji.text.EmojiSpan;
+import androidx.emoji2.text.EmojiCompat;
+import androidx.emoji2.text.EmojiSpan;
 
 import com.google.android.material.textfield.TextInputLayout;
 
@@ -153,7 +153,7 @@ public class LineUpdateTextWatcher implements TextWatcher {
    * This method is called to notify you that, somewhere within s, the text has been changed.
    * It is legitimate to make further changes to s from this callback, but be careful not to get
    * yourself into an infinite loop, because any changes you make will cause this method to be
-   * called again recursively. (You are not told where the change took place because other
+   * called again recursively. You are not told where the change took place because other
    * afterTextChanged() methods may already have made other changes and invalidated the offsets.
    * But if you need to know here, you can use Spannable#setSpan in
    * onTextChanged(CharSequence, int, int, int) to mark your place and then look

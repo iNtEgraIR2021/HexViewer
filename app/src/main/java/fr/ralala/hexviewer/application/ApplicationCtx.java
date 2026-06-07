@@ -10,8 +10,8 @@ import android.content.res.Resources;
 import android.os.Build;
 
 import androidx.appcompat.app.AppCompatDelegate;
-import androidx.emoji.bundled.BundledEmojiCompatConfig;
-import androidx.emoji.text.EmojiCompat;
+import androidx.emoji2.bundled.BundledEmojiCompatConfig;
+import androidx.emoji2.text.EmojiCompat;
 import androidx.preference.PreferenceManager;
 
 import org.apache.commons.collections4.queue.CircularFifoQueue;
@@ -20,6 +20,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 import java.util.Queue;
+import java.util.concurrent.Executors;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -163,7 +164,7 @@ public class ApplicationCtx extends Application {
       0, R.string.default_line_edit_row_height_landscape, R.string.default_line_edit_row_height_auto_landscape,
       R.string.default_line_edit_font_size_landscape);
     /* EmojiCompat */
-    EmojiCompat.Config config = new BundledEmojiCompatConfig(this);
+    EmojiCompat.Config config = new BundledEmojiCompatConfig(this, Executors.newSingleThreadExecutor());
     EmojiCompat.init(config);
     loadDefaultLocal();
     setApplicationLanguage(mLanguage);

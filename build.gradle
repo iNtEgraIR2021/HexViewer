@@ -1,4 +1,28 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 plugins {
   id 'com.android.application' version '9.2.1' apply false
+  id "org.sonarqube" version "7.3.1.8318"
+}
+
+// This is important, it will run lint checks but won't abort build
+sonar {
+  properties {
+    property "sonar.projectKey", "Keidan_HexViewer"
+    property "sonar.organization", "keidan"
+    property "sonar.host.url", "https://sonarcloud.io"
+    property 'sonar.projectName', 'HexViewer'
+    property 'sonar.projectVersion', project(':app').android.defaultConfig.versionName
+    property 'sonar.coverage.exclusions', "**/**"
+    // Exclude rules
+    property "sonar.issue.ignore.multicriteria", "e1,e2,e3,e4"
+    /* S110 */
+    property "sonar.issue.ignore.multicriteria.e1.ruleKey", "java:S110"
+    property "sonar.issue.ignore.multicriteria.e1.resourceKey", "**/fr/ralala/hexviewer/ui/activities/settings/SettingsActivity.java"
+    property "sonar.issue.ignore.multicriteria.e2.ruleKey", "java:S110"
+    property "sonar.issue.ignore.multicriteria.e2.resourceKey", "**/fr/ralala/hexviewer/ui/activities/settings/SettingsListsLandscapeActivity.java"
+    property "sonar.issue.ignore.multicriteria.e3.ruleKey", "java:S110"
+    property "sonar.issue.ignore.multicriteria.e3.resourceKey", "**/fr/ralala/hexviewer/ui/activities/settings/SettingsListsPortraitActivity.java"
+    property "sonar.issue.ignore.multicriteria.e4.ruleKey", "xml:S5604"
+    property "sonar.issue.ignore.multicriteria.e4.resourceKey", "**/AndroidManifest.xml"
+  }
 }

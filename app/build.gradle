@@ -1,6 +1,4 @@
 plugins {
-  //noinspection NewerVersionAvailable,GradleDependency
-  id "org.sonarqube" version "3.3"
   id 'com.android.application'
 }
 
@@ -71,28 +69,6 @@ android {
       }
     }
   }
-  // This is important, it will run lint checks but won't abort build
-  sonarqube {
-    properties {
-      property "sonar.projectKey", "Keidan_HexViewer"
-      property "sonar.organization", "keidan"
-      property "sonar.host.url", "https://sonarcloud.io"
-      property 'sonar.projectName', 'HexViewer'
-      property 'sonar.projectVersion', android.defaultConfig.versionName
-      property 'sonar.coverage.exclusions', "**/**"
-      // Exclude rules
-      property "sonar.issue.ignore.multicriteria", "e1,e2,e3,e4"
-      /* S110 */
-      property "sonar.issue.ignore.multicriteria.e1.ruleKey", "java:S110"
-      property "sonar.issue.ignore.multicriteria.e1.resourceKey", "**/fr/ralala/hexviewer/ui/activities/settings/SettingsActivity.java"
-      property "sonar.issue.ignore.multicriteria.e2.ruleKey", "java:S110"
-      property "sonar.issue.ignore.multicriteria.e2.resourceKey", "**/fr/ralala/hexviewer/ui/activities/settings/SettingsListsLandscapeActivity.java"
-      property "sonar.issue.ignore.multicriteria.e3.ruleKey", "java:S110"
-      property "sonar.issue.ignore.multicriteria.e3.resourceKey", "**/fr/ralala/hexviewer/ui/activities/settings/SettingsListsPortraitActivity.java"
-      property "sonar.issue.ignore.multicriteria.e4.ruleKey", "xml:S5604"
-      property "sonar.issue.ignore.multicriteria.e4.resourceKey", "**/AndroidManifest.xml"
-    }
-  }
   lint {
     abortOnError false
   }
@@ -103,9 +79,9 @@ dependencies {
   implementation "androidx.appcompat:appcompat:1.7.1"
   implementation "androidx.preference:preference:1.2.1"
   implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.2.0"
-  implementation "androidx.emoji:emoji:1.2.0"
+  implementation "androidx.emoji2:emoji2:1.6.0"
   implementation "androidx.documentfile:documentfile:1.1.0"
-  implementation "com.android.support:support-emoji-bundled:28.0.0"
+  implementation "androidx.emoji2:emoji2-bundled:1.6.0"
   implementation "com.google.android.material:material:1.14.0"
   coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.1.5'
   testImplementation "junit:junit:4.13.2"

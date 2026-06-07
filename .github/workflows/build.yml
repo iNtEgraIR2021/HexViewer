@@ -15,18 +15,21 @@ on:
       - synchronize
       - reopened
   workflow_dispatch: # Manual trigger from the GitHub UI
-
-permissions:
-  contents: read
   
 jobs:
+  permissions:
+    contents: read
   # Compile job: Build and test the app
   compile:
     runs-on: ubuntu-latest
     steps:
       - name: Debug GitHub context
+        env:
+          EVENT: ${{ github.event_name }}
+          REF: ${{ github.ref }}
+          SHA: ${{ github.sha }}
         run: |
-          echo "Event: ${{ github.event_name }}, Ref: ${{ github.ref }}, SHA: ${{ github.sha }}"
+          echo "Event: $EVENT, Ref: $REF, SHA: $SHA"
       - name: Checkout repository
         uses: actions/checkout@v6
         with:
@@ -37,12 +40,13 @@ jobs:
       - name: Build the tests
         run: ./gradlew test
       - uses: ./.github/actions/analyze-with-sonar
-        if: github.event_name != 'pull_request'
         with:
           sonar-token: ${{ secrets.SONAR_TOKEN }}
           
   # Check tag pattern
   check-tag:
+    permissions:
+      contents: read
     runs-on: ubuntu-latest
     if: startsWith(github.ref, 'refs/tags/')
     outputs:
@@ -63,6 +67,8 @@ jobs:
 
   # Release job: Signed APK generation and upload
   release-signed:
+    permissions:
+      contents: read
     needs: [compile, check-tag]
     runs-on: ubuntu-latest
     if: needs.check-tag.outputs.valid == 'true'

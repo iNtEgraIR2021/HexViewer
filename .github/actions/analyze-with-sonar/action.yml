@@ -11,8 +11,10 @@ runs:
   steps:
     - name: Check token
       shell: bash
+      env:
+        SONAR_TOKEN: ${{ inputs.sonar-token }}
       run: |
-        if [ -z "${{ inputs.sonar-token }}" ]; then
+        if [ -z "$SONAR_TOKEN" ]; then
           echo "::error::SONAR_TOKEN is required but not provided"
           exit 1
         fi
@@ -41,6 +43,6 @@ runs:
       env:
         GITHUB_TOKEN: ${{ github.token }}
         SONAR_TOKEN: ${{ inputs.sonar-token }}
-      run: ./gradlew build -x test sonarqube
+      run: ./gradlew build -x test sonar
       shell: bash
       continue-on-error: false
