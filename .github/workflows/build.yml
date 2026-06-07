@@ -17,10 +17,10 @@ on:
   workflow_dispatch: # Manual trigger from the GitHub UI
   
 jobs:
-  permissions:
-    contents: read
   # Compile job: Build and test the app
   compile:
+    permissions:
+      contents: read
     runs-on: ubuntu-latest
     steps:
       - name: Debug GitHub context
