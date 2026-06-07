@@ -354,7 +354,16 @@
       "login": "tfrtint",
       "name": "tfrtint",
       "avatar_url": "https://hosted.weblate.org/avatar/128/tfrtint.png",
-      "profile": "https://hosted.weblate.org/user/tfrtint/",
+      "profile": "https://hosted.weblate.org/user/tfrtint",
+      "contributions": [
+        "translation"
+      ]
+    },
+    {
+      "login": "Libertad",
+      "name": "Libertad",
+      "avatar_url": "https://hosted.weblate.org/avatar/128/Libertad.png",
+      "profile": "https://hosted.weblate.org/user/Libertad",
       "contributions": [
         "translation"
       ]

@@ -40,7 +40,7 @@ Translations:
 * Portuguese (Brazil): @Bardock88 (github), @pedrolinharesmoreira (github), @croomfolk (weblate)
 * Portuguese (Portugal): @SantosSi (github), @AntonioOliveira2 (github)
 * Russian: @OmlineEditor (github), @AHOHNMYC (github), @racingrebel (github), @Usland123 (github)
-* Spanish: @sguinetti (github), @gallegonovato (weblate), (+DeepL)
+* Spanish: @sguinetti (github), @gallegonovato (weblate), Libertad (weblate)
 * Tamil: @TamilNeram (github)
 * Turkish: @ersen0 (github)
 * Turkish (Ottoman): @bgo-eiu (github)
