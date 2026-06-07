@@ -16,8 +16,8 @@ import androidx.preference.PreferenceManager;
 
 import org.apache.commons.collections4.queue.CircularFifoQueue;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 import java.util.Queue;
 import java.util.concurrent.locks.Lock;
@@ -214,8 +214,8 @@ public class ApplicationCtx extends Application {
     else
       ctx = (ApplicationCtx) c.getApplicationContext();
     ctx.mLock.lock();
-    String head = new SimpleDateFormat("yyyyMMdd [hhmmssa]:\n",
-      Locale.US).format(new Date());
+    String head = LocalDateTime.now()
+            .format(DateTimeFormatter.ofPattern("yyyyMMdd ['['hhmmssa']']:\n", Locale.US));
     if (tag != null)
       head += "(" + tag + ") -> ";
     ctx.getLogBuffer().add(head + msg);

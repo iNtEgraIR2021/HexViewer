@@ -11,8 +11,8 @@ import androidx.appcompat.app.ActionBar;
 
 import org.apache.commons.collections4.queue.CircularFifoQueue;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 
 import fr.ralala.hexviewer.application.ApplicationCtx;
@@ -91,8 +91,8 @@ public class LogsActivity extends BaseActivity {
    */
   private Intent getDefaultShareIntent() {
     final String name = getResources().getString(R.string.app_name);
-    final String date = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss a", Locale.US)
-      .format(new Date());
+    final String date = LocalDateTime.now()
+            .format(DateTimeFormatter.ofPattern("yyyy/MM/dd hh:mm:ss a", Locale.US));
     final Intent intent = new Intent(Intent.ACTION_SEND);
     intent.setType("text/plain");
     intent.putExtra(Intent.EXTRA_SUBJECT, name + " v" + BuildConfig.VERSION_NAME + " logs "
