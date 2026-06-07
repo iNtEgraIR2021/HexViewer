@@ -132,23 +132,30 @@ tasks.withType(Test).configureEach { testTask ->
   doLast {
     logger.lifecycle("Tests finished.")
   }
+  addTestListener(new TestListener() {
+    @Override
+    void beforeSuite(TestDescriptor desc) {}
+    @Override
+    void beforeTest(TestDescriptor descriptor) {}
 
-  afterTest { descriptor, result ->
-    long duration = result.endTime - result.startTime
-    list << "Test ${descriptor.name} took ${duration} ms"
-    totalDuration += duration
-  }
-
-  afterSuite { desc, result ->
-    if (!desc.parent) { // root suite
-      logger.lifecycle("")
-      list.each { li ->
-        logger.lifecycle(li)
-      }
-      logger.lifecycle("Test summary: ${result.testCount} tests, ${result.successfulTestCount} succeeded, ${result.failedTestCount} failed, ${result.skippedTestCount} skipped")
-      logger.lifecycle("Total time: ${totalDuration} ms")
+    @Override
+    void afterTest(TestDescriptor descriptor, TestResult result) {
+      long duration = result.endTime - result.startTime
+      list << "Test ${descriptor.name} took ${duration} ms"
+      totalDuration += duration
     }
-  }
+    @Override
+    void afterSuite(TestDescriptor desc, TestResult result) {
+      if (!desc.parent) { // root suite
+        logger.lifecycle("")
+        list.each { li ->
+          logger.lifecycle(li)
+        }
+        logger.lifecycle("Test summary: ${result.testCount} tests, ${result.successfulTestCount} succeeded, ${result.failedTestCount} failed, ${result.skippedTestCount} skipped")
+        logger.lifecycle("Total time: ${totalDuration} ms")
+      }
+    }
+  })
 }
 
 // versionCode <-> versionName /////////////////////////////////////////////////////////////////////
@@ -163,8 +170,8 @@ tasks.register('checkVersion') {
   int correctVersionCode = generateVersionCode(android.defaultConfig.versionName)
   if (versionCode != correctVersionCode)
     throw new GradleException(
-      "versionCode and versionName don't match: " +
-        "versionCode should be $correctVersionCode. Is $versionCode."
+            "versionCode and versionName don't match: " +
+                    "versionCode should be $correctVersionCode. Is $versionCode."
     )
 }
 assemble.dependsOn checkVersion
@@ -177,7 +184,7 @@ tasks.register('checkFastlaneChangelog') {
   File changelogFile = file("$rootDir/fastlane/metadata/android/en-US/changelogs/${versionCode}.txt")
   if (!changelogFile.exists())
     throw new GradleException(
-      "Fastlane changelog missing: expecting file '$changelogFile'"
+            "Fastlane changelog missing: expecting file '$changelogFile'"
     )
 }
 build.dependsOn checkFastlaneChangelog
