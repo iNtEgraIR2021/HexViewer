@@ -40,6 +40,7 @@ jobs:
       - name: Build the tests
         run: ./gradlew test
       - uses: ./.github/actions/analyze-with-sonar
+        if: github.event.pull_request.user.login != 'weblate'
         with:
           sonar-token: ${{ secrets.SONAR_TOKEN }}
           
