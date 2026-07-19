@@ -13,6 +13,8 @@ sonar {
     property 'sonar.projectName', 'HexViewer'
     property 'sonar.projectVersion', project(':app').android.defaultConfig.versionName
     property 'sonar.coverage.exclusions', "**/**"
+    // Exclude binary resources from analysis (fixes UTF-8 encoding errors on PNGs)
+    property 'sonar.exclusions', "**/res/mipmap-*/**,**/res/drawable-*/**,**/*.png,**/*.jpg,**/*.jpeg,**/*.webp,**/*.gif,**/*.ico"
     // Exclude rules
     property "sonar.issue.ignore.multicriteria", "e1,e2,e3,e4"
     /* S110 */
