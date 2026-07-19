@@ -78,11 +78,15 @@ jobs:
         uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 #v7.0.0
       - uses: ./.github/actions/setup-gradle
       - name: Inject keystore.properties
+        env:
+          KEYSTORE_PROPERTIES: ${{ secrets.KEYSTORE_PROPERTIES }}
         run: |
-          echo "${{ secrets.KEYSTORE_PROPERTIES }}" | base64 -d > ./keystore.properties
+          echo "$KEYSTORE_PROPERTIES" | base64 -d > ./keystore.properties
       - name: Inject keystore.jks
+        env:
+          SIGNING_KEY: ${{ secrets.SIGNING_KEY }}
         run: |
-          echo "${{ secrets.SIGNING_KEY }}" | base64 -d > ./keystore.jks
+          echo "$SIGNING_KEY" | base64 -d > ./keystore.jks
       - name: Check keystore file integrity
         run: |
           stat ./keystore.jks
